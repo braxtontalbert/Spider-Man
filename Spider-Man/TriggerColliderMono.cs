@@ -24,9 +24,10 @@ namespace Spider_Man
         public TriggerColliderMono otherHandMono;
         private AudioSource swingSfx;
         private GameObject webBallSfx;
-        public Vector3 webHitSpot;
+        public RaycastHit webHitSpot;
         private bool spawningHandle;
         private bool spawningWebBall;
+        private bool webConnectedToRb;
 
         private bool allowClimbing = true;
         public AnimationCurve affectCurve = new AnimationCurve();
@@ -38,6 +39,9 @@ namespace Spider_Man
         private int tapCount = 0;
 
         private LineRenderer handleRenderer;
+
+        public Vector3 currentAnchorPoint;
+        public Vector3 worldAnchorPoint;
 
         public void ActivateHand(RagdollHand hand)
         {
@@ -211,7 +215,7 @@ namespace Spider_Man
                 nextHandle.IgnoreItemCollision(swingingHandle);
                 this.nextHandle = nextHandle;
                 this.nextHandle.transform.position = this.swingingHandle.transform.position +
-                                                     (webHitSpot - this.swingingHandle.transform.position).normalized *
+                                                     (worldAnchorPoint - this.swingingHandle.transform.position).normalized *
                                                      0.3f;
                 
                 interimJoint = nextHandle.gameObject.AddComponent<FixedJoint>();
@@ -221,34 +225,70 @@ namespace Spider_Man
                 this.nextHandle.OnUngrabEvent += UnGrabbedSwinging;
             });
         }
+
+        private RaycastHit globalHit;
         void SpawnSwingHandle(RaycastHit hit)
         {
             Catalog.GetData<ItemData>("InvisHandle").SpawnAsync(callback =>
             {
                 callback.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
                 callback.IgnoreItemCollision(item);
-                SetupSwing(callback, hit);
+
+                globalHit = hit;
+                SetupSwing(callback, globalHit);
                 if(ModOptions.allowClimbing) SpawnNextHandle();
             });
         }
         
-        void SetSpringJoint(Vector3 hit)
+        void SetSpringJoint(RaycastHit hit)
         {
-            mainJoint = swingingHandle.gameObject.AddComponent<SpringJoint>();
-            mainJoint.autoConfigureConnectedAnchor = false;
-            mainJoint.connectedAnchor = hit;
 
-            mainJoint.maxDistance =
-                Vector3.Distance(hit, swingingHandle.flyDirRef.transform.position) * 0.95f;
-            mainJoint.minDistance =
-                Vector3.Distance(hit, swingingHandle.flyDirRef.transform.position) * 0f;
-            mainJoint.spring = 130.5f;
-            mainJoint.damper = 20f;
-            mainJoint.massScale = hand.ragdoll.totalMass / hand.ragdolledMass;
+            if (hit.collider)
+            {
+                
+                webConnectedToRb = true;
+                currentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
+                /*currentAnchorPoint = new Vector3(
+                    connectTo.x / swingingHandle.transform.lossyScale.x,
+                    connectTo.y / swingingHandle.transform.lossyScale.y,
+                    connectTo.z / swingingHandle.transform.lossyScale.z
+                );*/
+                mainJoint = swingingHandle.gameObject.AddComponent<SpringJoint>();
+                mainJoint.autoConfigureConnectedAnchor = false;
+                mainJoint.connectedAnchor = hit.collider.transform.TransformPoint(currentAnchorPoint);
+                if(hit.collider.gameObject.GetComponent<Rigidbody>() is Rigidbody rb) mainJoint.connectedBody = rb;
+
+                mainJoint.maxDistance =
+                    Vector3.Distance( mainJoint.connectedAnchor, swingingHandle.flyDirRef.transform.position) * 0.95f;
+                mainJoint.minDistance =
+                    Vector3.Distance( mainJoint.connectedAnchor, swingingHandle.flyDirRef.transform.position) * 0f;
+                mainJoint.spring = 130.5f;
+                mainJoint.damper = 20f;
+                mainJoint.massScale = hand.ragdoll.totalMass / hand.ragdolledMass;
 
 
-            mainJoint.breakForce = Mathf.Infinity;
-            mainJoint.breakTorque = Mathf.Infinity;
+                mainJoint.breakForce = Mathf.Infinity;
+                mainJoint.breakTorque = Mathf.Infinity;
+            }
+            else
+            {
+                mainJoint = swingingHandle.gameObject.AddComponent<SpringJoint>();
+                mainJoint.autoConfigureConnectedAnchor = false;
+                worldAnchorPoint = hit.point;
+                mainJoint.connectedAnchor = worldAnchorPoint;
+
+                mainJoint.maxDistance =
+                    Vector3.Distance(worldAnchorPoint, swingingHandle.flyDirRef.transform.position) * 0.95f;
+                mainJoint.minDistance =
+                    Vector3.Distance(worldAnchorPoint, swingingHandle.flyDirRef.transform.position) * 0f;
+                mainJoint.spring = 130.5f;
+                mainJoint.damper = 20f;
+                mainJoint.massScale = hand.ragdoll.totalMass / hand.ragdolledMass;
+
+
+                mainJoint.breakForce = Mathf.Infinity;
+                mainJoint.breakTorque = Mathf.Infinity;
+            }
         }
         void SetupSwing(Item callback, RaycastHit hit)
         {
@@ -278,7 +318,7 @@ namespace Spider_Man
             currentWebPosition = swingingHandle.flyDirRef.transform.position;
             swingingHandle.OnUngrabEvent += UnGrabbedSwinging;
             
-            SetSpringJoint(hit.point);
+            SetSpringJoint(hit);
             Handle handle = swingingHandle.mainHandleRight;
             hand.Grab(handle, handle.GetDefaultOrientation(hand.side), handle.GetDefaultAxisLocalPosition(),
                 true);
@@ -303,7 +343,7 @@ namespace Spider_Man
                     60f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) && !spawningHandle)
             {
                 Debug.LogError("In raycast hit is: " + hit);
-                webHitSpot = hit.point;
+                webHitSpot = hit;
                 spawningHandle = true;
                 SpawnSwingHandle(hit);
             }
@@ -319,10 +359,10 @@ namespace Spider_Man
             }
             
             spring.SetDamper(ModOptions.damper);
-            spring.SetStrength(Mathf.Clamp(ModOptions.strength * Vector3.Distance(webHitSpot, swingingHandle.flyDirRef.transform.position),ModOptions.strength, ModOptions.strength * 5));
+            spring.SetStrength(Mathf.Clamp(ModOptions.strength * Vector3.Distance(worldAnchorPoint, swingingHandle.flyDirRef.transform.position),ModOptions.strength, ModOptions.strength * 5));
             spring.Update(Time.deltaTime);
 
-            var grapplePoint = webHitSpot;
+            var grapplePoint = worldAnchorPoint;
             var grappleStartPoint = swingingHandle.flyDirRef.transform.position;
             var up = Quaternion.LookRotation((grapplePoint - grappleStartPoint).normalized) * Vector3.up;
             currentWebPosition = Vector3.Lerp(currentWebPosition, grapplePoint, Time.deltaTime * 12f);
@@ -330,7 +370,7 @@ namespace Spider_Man
             for (int i = 0; i < ModOptions.quality + 1; i++)
             {
                 var delta = i / (float) ModOptions.quality;
-                var offset = up * Mathf.Clamp(ModOptions.waveHeight * Vector3.Distance(webHitSpot, swingingHandle.flyDirRef.transform.position),ModOptions.waveHeight, ModOptions.waveHeight * 2) * Mathf.Sin(delta * Mathf.Clamp(ModOptions.waveCount * Vector3.Distance(webHitSpot, swingingHandle.flyDirRef.transform.position),ModOptions.waveCount, ModOptions.waveCount * 2) * Mathf.PI) * spring.Value * affectCurve.Evaluate(delta);
+                var offset = up * Mathf.Clamp(ModOptions.waveHeight * Vector3.Distance(worldAnchorPoint, swingingHandle.flyDirRef.transform.position),ModOptions.waveHeight, ModOptions.waveHeight * 2) * Mathf.Sin(delta * Mathf.Clamp(ModOptions.waveCount * Vector3.Distance(worldAnchorPoint, swingingHandle.flyDirRef.transform.position),ModOptions.waveCount, ModOptions.waveCount * 2) * Mathf.PI) * spring.Value * affectCurve.Evaluate(delta);
                
                 // Add rotation to the offset
                 float rotationAngle = delta * ModOptions.rotation; // Full rotation over the length
@@ -398,10 +438,29 @@ namespace Spider_Man
             lr.enabled = false;
             handleRenderer.enabled = false;
             this.hand = originalHand;
+            webConnectedToRb = false;
             Destroy(mainJoint);
             Destroy(swingingHandle.gameObject);
         }
 
+
+        private void FixedUpdate()
+        {
+            if (mainJoint && webConnectedToRb)
+            {
+                // Recalculate anchor point in local space
+                if (webHitSpot.collider)
+                {
+                    worldAnchorPoint = webHitSpot.collider.transform.TransformPoint(currentAnchorPoint);
+                    mainJoint.connectedAnchor = worldAnchorPoint;
+
+                    // Optional: Log for debugging
+                    Debug.Log("Original Hit Point: " + webHitSpot.point);
+                    Debug.Log($"Anchor in Local Space: {currentAnchorPoint}");
+                    Debug.Log($"Anchor in World Space: {worldAnchorPoint}");
+                }
+            }
+        }
 
         private void Update()
         {
@@ -428,9 +487,9 @@ namespace Spider_Man
                 if (interimJoint)
                 {
                     interimJoint.connectedAnchor = this.swingingHandle.transform.position +
-                                                   (webHitSpot - this.swingingHandle.transform.position).normalized *
+                                                   (worldAnchorPoint - this.swingingHandle.transform.position).normalized *
                                                    0.3f;
-                    nextHandle.transform.rotation = Quaternion.LookRotation((webHitSpot - swingingHandle.transform.position));
+                    nextHandle.transform.rotation = Quaternion.LookRotation((worldAnchorPoint - swingingHandle.transform.position));
                 }
             }
         }

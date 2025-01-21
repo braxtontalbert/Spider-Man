@@ -119,16 +119,16 @@ namespace Spider_Man
                 {
                     if (left.swinging && right.swinging)
                     {
-                        targetDirection = (right.webHitSpot - left.webHitSpot).normalized;
-                        float distanceHalved = Vector3.Distance(right.webHitSpot, left.webHitSpot) / 2f;
-                        var position = left.webHitSpot + (direction * distanceHalved);
+                        targetDirection = (right.worldAnchorPoint - left.worldAnchorPoint).normalized;
+                        float distanceHalved = Vector3.Distance(right.worldAnchorPoint, left.worldAnchorPoint) / 2f;
+                        var position = left.worldAnchorPoint + (direction * distanceHalved);
                         targetDirection = (position - Player.currentCreature.ragdoll.headPart.transform.position)
                             .normalized;
                     }
                     else if (left.swinging && !right.swinging)
-                        targetDirection = (left.webHitSpot - left.swingingHandle.transform.position).normalized;
+                        targetDirection = (left.worldAnchorPoint - left.swingingHandle.transform.position).normalized;
                     else if (right.swinging && !left.swinging)
-                        targetDirection = (right.webHitSpot - right.swingingHandle.transform.position).normalized;
+                        targetDirection = (right.worldAnchorPoint - right.swingingHandle.transform.position).normalized;
                     else
                     {
                         targetDirection = alignDive ? Vector3.down : Vector3.up;
