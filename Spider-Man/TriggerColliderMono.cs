@@ -44,10 +44,6 @@ namespace Spider_Man
             this.hand = hand;
             this.originalHand = hand;
         }
-
-        private Mesh webMesh;
-        private GameObject webMeshObject;
-        private GameObject instantiatedObjectMesh;
         private void Start()
         {
             originalHand = hand;
@@ -61,125 +57,10 @@ namespace Spider_Man
                 Catalog.LoadAssetAsync<Material>("Webtexture", callback =>
                 {
                     webtexture = callback;
-                    webMeshObject = new GameObject();
-                    var meshFilter = webMeshObject.GetComponent<MeshFilter>();
-                    if (meshFilter == null)
-                    {
-                        meshFilter = webMeshObject.AddComponent<MeshFilter>();
-                    }
-
-                    var meshRenderer = webMeshObject.GetComponent<MeshRenderer>();
-                    if (meshRenderer == null)
-                    {
-                        meshRenderer = webMeshObject.AddComponent<MeshRenderer>();
-                    }
-
-                    // Initialize the mesh
-                    webMesh = new Mesh();
-                    meshFilter.mesh = webMesh;
-
-                    meshRenderer.material = webtexture;
-                    // Optionally assign a default material
-                    if (meshRenderer.material == null)
-                    {
-                        meshRenderer.material = new Material(Shader.Find("ThunderRoad/LitMoss"));
-                    }
                 }, "Webmaterial");
             }
             
         }
-            private void DrawDynamicWebMesh()
-            {
-            // Ensure the web object is instantiated
-            if (!instantiatedObjectMesh)
-            {
-                instantiatedObjectMesh = Instantiate(webMeshObject);
-                instantiatedObjectMesh.transform.position = swingingHandle.transform.position;
-            }
-
-            // Update currentWebPosition for animation
-            currentWebPosition = Vector3.Lerp(currentWebPosition, webHitSpot, Time.deltaTime * 12f);
-            if (Vector3.Distance(currentWebPosition, webHitSpot) < 0.01f)
-            {
-                currentWebPosition = webHitSpot;
-            }
-
-            // Prepare parameters for variation
-            float randomWaveHeight = ModOptions.waveHeight * Random.Range(0.8f, 1.2f);
-            float randomWaveFrequency = ModOptions.waveCount * Random.Range(0.8f, 1.2f);
-            float randomRotationMultiplier = ModOptions.rotation * Random.Range(0.8f, 1.2f);
-
-            // Web appearance customization
-            float baseWidth = 0.02f; // Narrower base width for Spider-Man-like web
-            float taperingFactor = 0.01f; // End width
-
-            int vertexCount = (ModOptions.quality + 1) * 2;
-            var vertices = new Vector3[vertexCount];
-            var triangles = new int[ModOptions.quality * 6];
-            var uvs = new Vector2[vertexCount];
-
-            Vector3 grappleStartPoint = swingingHandle.flyDirRef.transform.position;
-            Vector3 up = Quaternion.LookRotation((webHitSpot - grappleStartPoint).normalized) * Vector3.up;
-            currentWebPosition = Vector3.Lerp(currentWebPosition, webHitSpot, Time.deltaTime * 12f);
-            for (int i = 0; i <= ModOptions.quality; i++)
-            {
-                float delta = i / (float)ModOptions.quality;
-
-                // Position along the web, animating toward currentWebPosition
-                Vector3 segmentPosition = Vector3.Lerp(grappleStartPoint, currentWebPosition, delta);
-
-                // Tangled offset effect: Add spiraling or jittering
-                float tangleStrength = Mathf.Lerp(0.005f, 0.015f, delta);
-                Vector3 tangleOffset = Quaternion.AngleAxis(delta * 360 * randomRotationMultiplier, (webHitSpot - grappleStartPoint).normalized) * up * tangleStrength;
-
-                // Wave effect for the web
-                float waveMagnitude = Mathf.Clamp(randomWaveHeight * Vector3.Distance(webHitSpot, grappleStartPoint), randomWaveHeight, randomWaveHeight * 2);
-                Vector3 waveOffset = up * waveMagnitude * Mathf.Sin(delta * randomWaveFrequency * Mathf.PI) * spring.Value * affectCurve.Evaluate(delta);
-
-                // Combine offsets
-                Vector3 totalOffset = waveOffset + tangleOffset;
-
-                // Tapering width
-                float width = Mathf.Lerp(baseWidth, taperingFactor, delta);
-
-                // Define vertices for this segment
-                Vector3 depthOffset = (currentWebPosition - grappleStartPoint).normalized * Mathf.Lerp(0.05f, 0.1f, delta);
-                Vector3 left = segmentPosition - (up * (width / 2)) + totalOffset;
-                Vector3 right = segmentPosition + (up * (width / 2)) + totalOffset;
-
-                vertices[i * 2] = left;
-                vertices[i * 2 + 1] = right;
-
-                // UV mapping
-                uvs[i * 2] = new Vector2(0, delta);
-                uvs[i * 2 + 1] = new Vector2(1, delta);
-
-                // Define triangles
-                if (i < ModOptions.quality)
-                {
-                    int baseIndex = i * 2;
-                    int triangleIndex = i * 6;
-
-                    // First triangle
-                    triangles[triangleIndex] = baseIndex;
-                    triangles[triangleIndex + 1] = baseIndex + 2;
-                    triangles[triangleIndex + 2] = baseIndex + 1;
-
-                    // Second triangle
-                    triangles[triangleIndex + 3] = baseIndex + 1;
-                    triangles[triangleIndex + 4] = baseIndex + 2;
-                    triangles[triangleIndex + 5] = baseIndex + 3;
-                }
-            }
-
-            // Update the mesh
-            webMesh.Clear();
-            webMesh.vertices = vertices;
-            webMesh.triangles = triangles;
-            webMesh.uv = uvs;
-            webMesh.RecalculateNormals();
-        }
-        
         void HandleTap(int tapMax, string type)
         {
             float currentTime = Time.time;
@@ -460,81 +341,6 @@ namespace Spider_Man
             }
 
         }
-        
-        private void DrawWebMesh()
-        {
-
-            if (!instantiatedObjectMesh)
-            {
-                instantiatedObjectMesh = Instantiate(webMeshObject);
-                instantiatedObjectMesh.transform.position = swingingHandle.transform.position;
-            }
-        // Prepare vertices and triangles
-            int vertexCount = (ModOptions.quality + 1) * 2;
-            var vertices = new Vector3[vertexCount];
-            var triangles = new int[ModOptions.quality * 6];
-            var uvs = new Vector2[vertexCount];
-
-            Vector3 grappleStartPoint = swingingHandle.flyDirRef.transform.position;
-            Vector3 up = Quaternion.LookRotation((webHitSpot - grappleStartPoint).normalized) * Vector3.up;
-            currentWebPosition = Vector3.Lerp(currentWebPosition, webHitSpot, Time.deltaTime * 12f);
-            for (int i = 0; i <= ModOptions.quality; i++)
-            {
-                float delta = i / (float)ModOptions.quality;
-
-                // Offset for wave effect
-                float waveMagnitude = Mathf.Clamp(ModOptions.waveHeight * Vector3.Distance(webHitSpot, grappleStartPoint), ModOptions.waveHeight, ModOptions.waveHeight * 2);
-                float waveFrequency = Mathf.Clamp(ModOptions.waveCount * Vector3.Distance(webHitSpot, grappleStartPoint), ModOptions.waveCount, ModOptions.waveCount * 2);
-                Vector3 offset = up * waveMagnitude * Mathf.Sin(delta * waveFrequency * Mathf.PI) * spring.Value * affectCurve.Evaluate(delta);
-
-                // Rotation effect
-                float rotationAngle = delta * ModOptions.rotation;
-                Quaternion rotationQuat = Quaternion.AngleAxis(rotationAngle, (currentWebPosition - grappleStartPoint).normalized);
-                offset = rotationQuat * offset;
-
-                // Position of the web at this segment
-                Vector3 segmentPosition = Vector3.Lerp(grappleStartPoint, currentWebPosition, delta);
-
-                // Tapering width
-                float width = Mathf.Lerp(0.2f, 0.05f, delta);
-
-                // Define vertices for this segment
-                Vector3 depthOffset = (currentWebPosition - grappleStartPoint).normalized * Mathf.Lerp(0.05f, 0.1f, delta);
-                Vector3 left = segmentPosition - (rotationQuat * up) * (width / 2) + depthOffset;
-                Vector3 right = segmentPosition + (rotationQuat * up) * (width / 2) - depthOffset;
-
-                vertices[i * 2] = left;
-                vertices[i * 2 + 1] = right;
-
-                // UV mapping
-                uvs[i * 2] = new Vector2(0, delta);
-                uvs[i * 2 + 1] = new Vector2(1, delta);
-
-                // Define triangles
-                if (i < ModOptions.quality)
-                {
-                    int baseIndex = i * 2;
-                    int triangleIndex = i * 6;
-
-                    // First triangle
-                    triangles[triangleIndex] = baseIndex;
-                    triangles[triangleIndex + 1] = baseIndex + 2;
-                    triangles[triangleIndex + 2] = baseIndex + 1;
-
-                    // Second triangle
-                    triangles[triangleIndex + 3] = baseIndex + 1;
-                    triangles[triangleIndex + 4] = baseIndex + 2;
-                    triangles[triangleIndex + 5] = baseIndex + 3;
-                }
-            }
-
-            // Update the mesh
-            webMesh.Clear();
-            webMesh.vertices = vertices;
-            webMesh.triangles = triangles;
-            webMesh.uv = uvs;
-            webMesh.RecalculateNormals();
-        }
         private void UnGrabbedSwinging(Handle handle, RagdollHand ragdollhand, bool throwing)
         {
             if (handle.GetComponentInParent<Item>().Equals(swingingHandle) && ModOptions.allowClimbing)
@@ -563,10 +369,9 @@ namespace Spider_Man
         }
         private void LateUpdate()
         {
-            if (swinging && false)
+            if (swinging)
             {
                 DrawWeb();
-                DrawWebMesh();
                 if (handleRenderer)
                 {
                     handleRenderer.SetPosition(0, swingingHandle.flyDirRef.transform.position + (-swingingHandle.flyDirRef.transform.forward * 0.0706314f));
@@ -583,14 +388,9 @@ namespace Spider_Man
                         lr.positionCount = 0;
                     }
                 }
-
-                if (instantiatedObjectMesh)
-                {
-                    Destroy(instantiatedObjectMesh);
-                }
             }
         }
-       
+
 
         void BreakSwing()
         {
@@ -601,148 +401,12 @@ namespace Spider_Man
             Destroy(mainJoint);
             Destroy(swingingHandle.gameObject);
         }
-        
-        private float transitionTime = 0f; // Manages the transition animation
-        private float connectionProgress = 0f; // Tracks the progress of the web connecting to the target
-        private bool isSwinging = false; // Tracks if the web is actively swinging
 
-        private void DrawRopeMesh()
-        {
-            // Ensure the web object is instantiated
-            if (!instantiatedObjectMesh)
-            {
-                instantiatedObjectMesh = Instantiate(webMeshObject);
-                instantiatedObjectMesh.transform.position = swingingHandle.transform.position;
-            }
-
-            // Reset state for new swings
-            if (!isSwinging)
-            {
-                connectionProgress = 0f;
-                transitionTime = 0f;
-                currentWebPosition = swingingHandle.flyDirRef.transform.position;
-                isSwinging = true; // Set swinging state
-            }
-
-            // Speed of connection animation
-            float connectionSpeed = 0.8f; // Slightly slower for the connection
-            bool hasReachedTarget = connectionProgress >= 1f;
-
-            if (!hasReachedTarget)
-            {
-                connectionProgress = Mathf.Clamp01(connectionProgress + Time.deltaTime * connectionSpeed);
-                currentWebPosition = Vector3.Lerp(swingingHandle.flyDirRef.transform.position, webHitSpot, connectionProgress);
-            }
-
-            // Transition factor for uncoiling
-            float transitionDuration = 2.0f; // Longer duration for slower uncoiling
-            float uncoilFactor = hasReachedTarget ? Mathf.Clamp01(transitionTime / transitionDuration) : 0f;
-
-            if (hasReachedTarget)
-            {
-                transitionTime += Time.deltaTime;
-            }
-            else
-            {
-                transitionTime = 0f;
-            }
-
-            // Rope parameters
-            int radialSegments = 8; // Number of circular segments
-            int quality = ModOptions.quality;
-            float baseRadius = 0.012f; // Base radius for the rope
-            float taperingFactor = 0.006f; // Tapering radius toward the end
-            float sagMagnitude = Mathf.Lerp(0.08f, 0.02f, uncoilFactor); // Reduce sag as transition progresses
-            float rotationSpeed = hasReachedTarget ? 0f : 3f; // Coiling stops after transition
-
-            // Initialize arrays
-            int vertexCount = (quality + 1) * (radialSegments + 1);
-            int triangleCount = quality * radialSegments * 6;
-            var vertices = new Vector3[vertexCount];
-            var triangles = new int[triangleCount];
-            var uvs = new Vector2[vertexCount];
-
-            // Directions
-            Vector3 grappleStartPoint = swingingHandle.flyDirRef.transform.position;
-            Vector3 direction = (webHitSpot - grappleStartPoint).normalized;
-            Vector3 upDirection = Quaternion.LookRotation(direction) * Vector3.up;
-
-            // Generate vertices and triangles
-            int vertexIndex = 0;
-            int triangleIndex = 0;
-
-            for (int i = 0; i <= quality; i++)
-            {
-                float delta = i / (float)quality;
-
-                // Position along the rope
-                Vector3 segmentPosition = Vector3.Lerp(grappleStartPoint, currentWebPosition, delta);
-
-                // Direction-based sag
-                float sagFactor = Mathf.Lerp(0.8f, 1f, delta); // Stiffness fades along the length
-                float sag = Mathf.Sin(delta * Mathf.PI) * sagMagnitude * sagFactor;
-                segmentPosition += upDirection * sag;
-
-                // Radius tapering
-                float radius = Mathf.Lerp(baseRadius, taperingFactor, delta);
-
-                // Rotational coiling (diminishes during transition)
-                float coilRotation = Mathf.Lerp(rotationSpeed * delta * 360f, 0f, uncoilFactor);
-                Quaternion coilQuaternion = Quaternion.AngleAxis(coilRotation, direction);
-
-                for (int j = 0; j <= radialSegments; j++)
-                {
-                    float angle = (j / (float)radialSegments) * Mathf.PI * 2;
-                    Vector3 radialOffset = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, direction) * upDirection * radius;
-
-                    // Apply coiling rotation
-                    radialOffset = coilQuaternion * radialOffset;
-
-                    // Vertex position
-                    vertices[vertexIndex] = segmentPosition + radialOffset;
-
-                    // UV mapping
-                    uvs[vertexIndex] = new Vector2(j / (float)radialSegments, delta);
-
-                    // Triangles
-                    if (i < quality && j < radialSegments)
-                    {
-                        int nextSegment = vertexIndex + radialSegments + 1;
-
-                        triangles[triangleIndex++] = vertexIndex;
-                        triangles[triangleIndex++] = nextSegment;
-                        triangles[triangleIndex++] = vertexIndex + 1;
-
-                        triangles[triangleIndex++] = vertexIndex + 1;
-                        triangles[triangleIndex++] = nextSegment;
-                        triangles[triangleIndex++] = nextSegment + 1;
-                    }
-
-                    vertexIndex++;
-                }
-            }
-
-            // Update the mesh
-            webMesh.Clear();
-            webMesh.vertices = vertices;
-            webMesh.triangles = triangles;
-            webMesh.uv = uvs;
-            webMesh.RecalculateNormals();
-
-            // Reset the state when animation finishes
-            if (hasReachedTarget && uncoilFactor >= 1f)
-            {
-                isSwinging = false; // Ready for the next swing
-            }
-        }
-        
-       
 
         private void Update()
         {
             if (this.swinging)
             {
-                DrawRopeMesh();
                 if (swingingHandle && swingingHandle.mainHandler && swingingHandle.mainHandler.Equals(this.hand) &&
                     this.hand.playerHand.controlHand.usePressed)
                 {
