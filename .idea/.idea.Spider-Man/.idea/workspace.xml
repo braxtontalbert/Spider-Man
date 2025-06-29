@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="662157e0-cda4-4c01-8c5c-aff2c7e17fc0" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/29/0fbae3cc/RagdollHand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/58/280cdf2f/GolemController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/5f/107014ab/Player.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/7b/4615e246/Locomotion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/7d/d6ea1ba0/RagdollHandClimb.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/98/35d790e2/ItemData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/9a/91ac28cf/ItemMagicProjectile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/b4/d1df46aa/Handle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/b4/f69a6f43/Catalog.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/c1/77c7693a/Interactable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/d5/298002bf/CollisionInstance.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/e4/f492ba0d/Item.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/ee/4a235665/BhapticsHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/05/f25177cb/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/0e/46455ba0/Component.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/24/5e7c8e7f/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/fd/d91402cc/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/533ae79f05d34c30a7f8375fc8cd45081bac0/8f/111d6f3d/Joint.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c0c221501f3a41f8ac0af9d6a9dc9ff335fd90/45/78eb9338/Queue`1.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2qis5XuaPrCwqgW6f38DH66fuiB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="662157e0-cda4-4c01-8c5c-aff2c7e17fc0" name="Changes" comment="" />
+      <created>1735156548477</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735156548477</updated>
+      <workItem from="1735156550252" duration="7596000" />
+      <workItem from="1735169305197" duration="31811000" />
+      <workItem from="1735250675820" duration="8101000" />
+      <workItem from="1735266038001" duration="38862000" />
+      <workItem from="1735397772425" duration="15525000" />
+      <workItem from="1735647624779" duration="18217000" />
+      <workItem from="1735851046684" duration="34360000" />
+      <workItem from="1736039108390" duration="16977000" />
+      <workItem from="1736134254650" duration="37079000" />
+      <workItem from="1736452177389" duration="23626000" />
+      <workItem from="1736552354057" duration="15380000" />
+      <workItem from="1736817028471" duration="15979000" />
+      <workItem from="1736981450332" duration="19416000" />
+      <workItem from="1737254422938" duration="9007000" />
+      <workItem from="1737423905768" duration="27292000" />
+      <workItem from="1737827572189" duration="12892000" />
+      <workItem from="1737861250528" duration="18969000" />
+      <workItem from="1738208531218" duration="35802000" />
+      <workItem from="1738465232408" duration="3584000" />
+      <workItem from="1738527784374" duration="10858000" />
+      <workItem from="1739203049179" duration="1302000" />
+      <workItem from="1739207559893" duration="1468000" />
+      <workItem from="1740204757930" duration="9000" />
+      <workItem from="1740873027254" duration="31000" />
+      <workItem from="1742140036959" duration="101000" />
+      <workItem from="1742256661685" duration="641000" />
+      <workItem from="1742266274754" duration="1367000" />
+      <workItem from="1742316005163" duration="1838000" />
+      <workItem from="1744217990332" duration="1996000" />
+      <workItem from="1745521335867" duration="3950000" />
+      <workItem from="1751240162465" duration="593000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
