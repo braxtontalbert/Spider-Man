@@ -11,7 +11,7 @@ namespace Spider_Man
         public override void ScriptUpdate()
         {
             base.ScriptUpdate();
-            if (decalQueue.Count >= 10)
+            if (decalQueue.Count >= 20)
             {
                 GameObject.Destroy(decalQueue.Dequeue());
             }

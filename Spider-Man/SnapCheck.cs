@@ -45,6 +45,7 @@ namespace Spider_Man
                     Player.fallDamage = false;
                     GameManager.SetFreeClimb(true);
                     hand.caster.DisableSpellWheel(this);
+                    hand.caster.telekinesis.Disable(ManageAutoAlignment.local.right);
                     break;
                 case Side.Left:
                     ManageAutoAlignment.local.left.ActivateItem(item);
@@ -53,6 +54,7 @@ namespace Spider_Man
                     Player.fallDamage = false;
                     GameManager.SetFreeClimb(true);
                     hand.caster.DisableSpellWheel(this);
+                    hand.caster.telekinesis.Disable(ManageAutoAlignment.local.left);
                     break;
             }
 

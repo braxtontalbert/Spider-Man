@@ -11,6 +11,8 @@ namespace Spider_Man
         public TriggerColliderMono left;
         public TriggerColliderMono right;
 
+        public Material materialWeb;
+        public Material materiaLWebElevated;
 
         private float elapsedTimeSwingStart = 0f;
         private float elapsedTimeSwingEnd = 0f;
@@ -28,8 +30,35 @@ namespace Spider_Man
             {
                 local = this;
             }
-
+            
+            Catalog.LoadAssetAsync<Material>("WebbedUpMatSkin", material =>
+            {
+                this.materialWeb = material;
+            }, "WebMaterialHandler");
+            Catalog.LoadAssetAsync<Material>("WebbedUpMatElevated", material =>
+            {
+                this.materiaLWebElevated = material;
+            }, "WebElevatedMaterialHandler");
             Player.onSpawn += OnSpawn;
+            EventManager.onCreatureDespawn += CreatureDespawn;
+        }
+
+        public override void ScriptUnload()
+        {
+            base.ScriptUnload();
+            EventManager.onCreatureDespawn -= CreatureDespawn;
+        }
+
+        private void CreatureDespawn(Creature creature1, EventTime eventtime)
+        {
+            if (eventtime == EventTime.OnStart && creature1.gameObject.GetComponent<CreatureWebTracker>())
+            {
+                var webtrackerRef = creature1.gameObject.GetComponent<CreatureWebTracker>();
+                webtrackerRef.ResetCreatureMaterial();
+                creature1.locomotion.SetSpeedModifier(webtrackerRef);
+                creature1.animator.speed = 1f;
+                Object.Destroy(webtrackerRef); 
+            }
         }
 
         private void OnSpawn(Player player)
@@ -135,7 +164,6 @@ namespace Spider_Man
                     }
                     if (Vector3.Dot(Player.local.transform.forward, targetDirection) < 0 && alignDive)
                     {
-                        // Flip the targetDirection if it points backward
                         targetDirection = Vector3.Reflect(targetDirection, Player.local.transform.forward);
                     }
 
