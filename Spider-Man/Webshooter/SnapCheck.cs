@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Spider_Man.Management;
 using ThunderRoad;
 using UnityEngine;
 
-namespace Spider_Man
+namespace Spider_Man.Webshooter
 {
     public class SnapCheck : MonoBehaviour
     {
@@ -11,9 +10,9 @@ namespace Spider_Man
         private Item item;
         private RagdollHand hand;
         private bool leftTriggerSet = false;
-        private TriggerColliderMono triggerLEft;
+        private WSRagdollHand triggerLEft;
         private bool rightTriggerSet = false;
-        private TriggerColliderMono triggerRight;
+        private WSRagdollHand triggerRight;
         private ManageAutoAlignment autoAlign;
         private void Start()
         {
@@ -34,7 +33,7 @@ namespace Spider_Man
             }
         }
 
-        void Snap(RagdollHand hand, Item item)
+        public void Snap(RagdollHand hand, Item item)
         {
             switch (hand.side)
             {
@@ -65,11 +64,18 @@ namespace Spider_Man
             if (hand.otherHand.side == Side.Right)
                 item.GetMainHandle(hand.side).allowedHandSide = Interactable.HandSide.Right;
             item.physicBody.isKinematic = true;
+            //up and down -> up is negative down is positive
             item.transform.position = hand.transform.position + (-hand.transform.forward * 0.03f);
-            item.transform.position = item.transform.position + (hand.transform.right * 0.01f);
+            //Forward and backwards -> Postive is backwards - is forwards
+            item.transform.position = item.transform.position;//+ (-hand.transform.right * 0.01f);
+            //Left and right
+            if(hand.side == Side.Left) item.transform.position += (hand.transform.up * 0.0051f);
+            if(hand.side == Side.Right) item.transform.position += (-hand.transform.up * 0.005f);
             item.transform.rotation = hand.transform.rotation;
-            item.transform.Rotate(Vector3.right, 90);
-            item.transform.Rotate(Vector3.down, 90);
+            if(hand.side == Side.Right) item.transform.Rotate(Vector3.right, 85);
+            if(hand.side == Side.Left) item.transform.Rotate(Vector3.right, 90);
+            if(hand.side == Side.Right)item.transform.Rotate(Vector3.down, 90);
+            if(hand.side == Side.Left)item.transform.Rotate(Vector3.down, 90);
             item.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
             item.transform.parent = hand.transform;
         }

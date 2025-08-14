@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Spider_Man
+namespace Spider_Man.Webshooter.Animation
 {
     public class Spring
     {

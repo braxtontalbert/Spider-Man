@@ -1,72 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections;
+using Spider_Man.Management;
 using ThunderRoad;
 using UnityEngine;
 
-namespace Spider_Man
+namespace Spider_Man.Webshooter.Gadgets.ImpactWeb
 {
-    public class WebBall : MonoBehaviour
+    public class ImpactWeb : MonoBehaviour
     {
         private Item item;
         private Vector3 spawnPoint;
         private Transform webBallTexture;
+        private Item webshooter;
 
-        public void Setup(Vector3 spawnPoint, Transform webBallTexture)
+        public void Setup(Vector3 spawnPoint, Transform webBallTexture, Item webshooter)
         {
             this.spawnPoint = spawnPoint;
             this.webBallTexture = webBallTexture;
+            this.webshooter = webshooter;
         }
         private void Start()
         {
             item = GetComponent<Item>();
         }
 
+        IEnumerator DelayWeb(Creature creature)
+        {
+            creature.gameObject.AddComponent<CreatureWebTracker>().OnWebMax();
+            var trackerAdd = creature.gameObject.GetComponent<CreatureWebTracker>();
+            yield return null;
+            trackerAdd.MaxWebbed();
+            item.Despawn();
+        }
         private void OnCollisionEnter(Collision collision)
         {
-            item.Despawn();
+            var direction = (collision.contacts[0].point - webshooter.flyDirRef.transform.position).normalized;
             Catalog.InstantiateAsync("webSplat", collision.contacts[0].point, item.transform.rotation,
                 null,
                 go =>
                 {
                 }, "WebHitSplat");
+            
             if (collision.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
                 if (creature.gameObject.GetComponent<CreatureWebTracker>() is CreatureWebTracker tracker)
                 {
-                    tracker.hitNumber += 1;
+                    tracker.MaxWebbed();
+                    item.Despawn();
                 }
                 else
                 {
-                    var trackerAdd = creature.gameObject.AddComponent<CreatureWebTracker>();
-                    trackerAdd.hitNumber += 1;
+                    StartCoroutine(DelayWeb(creature));
+                }
+                creature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                foreach (var part in creature.ragdoll.parts)
+                {
+                    part.physicBody.rigidBody.AddForce(direction * 300f, ForceMode.Impulse);
                 }
             }
-            /*else
-            {
-                Vector3 sum = new Vector3();
-                foreach (var contact in collision.contacts)
-                {
-                    sum += contact.normal;
-                }
-
-                Vector3 positionSum = new Vector3();
-                foreach (var contact in collision.contacts)
-                {
-                    sum += contact.point;
-                }
-
-                var collisionNormalDirection = sum.normalized;
-                var collisionPositionAverage = sum / collision.contacts.Length;
-
-                Catalog.InstantiateAsync("WebHitMesh", collisionPositionAverage, collision.collider.transform.rotation,
-                    null,
-                    go =>
-                    {
-                        go.transform.rotation = Quaternion.LookRotation(go.transform.up, collisionNormalDirection);
-                        DecalManager.decalQueue.Enqueue(go);
-                    }, "WebHitMesh");
-            }*/
-
+            else item.Despawn();
+            
         }
 
         private float elapsedTime = 0f;
@@ -75,14 +67,14 @@ namespace Spider_Man
         {
             if (Vector3.Distance(spawnPoint, item.transform.position) > 0.3f)
             {
-                var renderer = webBallTexture.GetComponent<MeshRenderer>();
+                var renderer = webBallTexture.GetComponentInChildren<MeshRenderer>();
                 renderer.enabled = true;
             }
 
             if (item && webBallTexture)
             {
                 var localScaleRef = webBallTexture.transform.localScale;
-                var vector = new Vector3(localScaleRef.x, localScaleRef.y, localScaleRef.z + 3f);
+                var vector = new Vector3(localScaleRef.x, localScaleRef.y, localScaleRef.z + 0.1f);
                 webBallTexture.transform.localScale = Vector3.Lerp(localScaleRef, vector, Time.deltaTime * 300f);
                 if (Vector3.Distance(item.transform.position, spawnPoint) > 20f)
                 {

@@ -1,6 +1,6 @@
 ﻿using ThunderRoad;
-using UnityEngine;
-namespace Spider_Man
+
+namespace Spider_Man.Webshooter
 {
     public class WebShooterModule : ItemModule
     {

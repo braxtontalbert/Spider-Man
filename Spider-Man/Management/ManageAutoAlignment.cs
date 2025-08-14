@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Spider_Man.Webshooter;
 using ThunderRoad;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Spider_Man
+namespace Spider_Man.Management
 {
     public class ManageAutoAlignment : ThunderScript
     {
         public static ManageAutoAlignment local;
-        public TriggerColliderMono left;
-        public TriggerColliderMono right;
+        public WSRagdollHand left;
+        public WSRagdollHand right;
 
         public Material materialWeb;
         public Material materiaLWebElevated;
@@ -80,8 +80,8 @@ namespace Spider_Man
                 var toAdd = Object.Instantiate(colliderObject, handLeft.transform);
                 toAdd.transform.position = handLeft.transform.position;
                 toAdd.transform.parent = handLeft.transform;
-                toAdd.AddComponent<TriggerColliderMono>().ActivateHand(handLeft);
-                left = toAdd.GetComponent<TriggerColliderMono>();
+                toAdd.AddComponent<WSRagdollHand>().ActivateHand(handLeft);
+                left = toAdd.GetComponent<WSRagdollHand>();
                 Player.currentCreature.handLeft.playerHand.controlHand.OnButtonPressEvent += PressedEvent;
             }
 
@@ -97,8 +97,8 @@ namespace Spider_Man
                 var toAdd = Object.Instantiate(colliderObject, handRight.transform);
                 toAdd.transform.position = handRight.transform.position;
                 toAdd.transform.parent = handRight.transform;
-                toAdd.AddComponent<TriggerColliderMono>().ActivateHand(handRight);
-                right = toAdd.GetComponent<TriggerColliderMono>();
+                toAdd.AddComponent<WSRagdollHand>().ActivateHand(handRight);
+                right = toAdd.GetComponent<WSRagdollHand>();
                 Player.currentCreature.handRight.playerHand.controlHand.OnButtonPressEvent += PressedEvent;
             }
             
@@ -114,16 +114,41 @@ namespace Spider_Man
         }
 
         private bool alignDive;
+        private bool startWallRun;
+        private Vector3 gravityNormal;
         private void PressedEvent(PlayerControl.Hand.Button button, bool pressed)
         {
-            if (button == PlayerControl.Hand.Button.AlternateUse && pressed && (!right.swinging || !left.swinging))
+            if (button == PlayerControl.Hand.Button.AlternateUse && pressed && (!right.swinging || !left.swinging) && allowWallRun)
             {
-                alignDive = true;
+                if (Player.local.handRight.ragdollHand.climb.isGripping)
+                {
+                    if (Physics.Raycast(Player.local.handRight.ragdollHand.caster.magicSource.transform.position,
+                            Player.local.handRight.ragdollHand.caster.magicSource.transform.forward, out RaycastHit hit, .5f,
+                            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                    {
+                        var normal = hit.normal;
+                        Player.local.locomotion.customGravity = (-normal * -9.81f).magnitude;
+                        targetDirection = -hit.normal;
+                        startWallRun = true;
+                    }
+                }
+                else if (Player.local.handLeft.ragdollHand.climb.isGripping)
+                {
+                    if (Physics.Raycast(Player.local.handLeft.ragdollHand.caster.magicSource.transform.position,
+                            Player.local.handLeft.ragdollHand.caster.magicSource.transform.forward, out RaycastHit hit, .5f,
+                            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                    {
+                        var normal = hit.normal;
+                        Player.local.locomotion.customGravity = (-normal * -9.81f).magnitude;
+                        targetDirection = -hit.normal;
+                        startWallRun = true;
+                    }
+                }
             }
-            else if (button == PlayerControl.Hand.Button.AlternateUse && !pressed)
+            /*else if (button == PlayerControl.Hand.Button.AlternateUse && !pressed)
             {
-                alignDive = false;
-            }
+                startWallRun = false;
+            }*/
         }
 
         public override void ScriptFixedUpdate()
@@ -133,12 +158,19 @@ namespace Spider_Man
         }
         float speed = 10f;
         Vector3 direction = Vector3.up;
-        Vector3 targetDirection = Vector3.up;
+        public Vector3 targetDirection = Vector3.up;
         private bool alignPlayerWhileClimbing = false;
+        private bool allowWallRun;
         private bool vectorSet;
         private Vector3 perpendicularVector;
         private Vector3 previousNormal;
         private Vector3 smoothedNormal;
+        
+        private Vector3 lastRotationAxis = Vector3.zero;
+        private float lastAngleToUp = 0f;
+        
+        private Vector3 spinAxis = Vector3.zero;
+        private float currentSpinDirection = 1f; // 1 = clockwise, -1 = counter-clockwise
         private void Update()
         {
             if (ModOptions.alignPlayerWhileSwinging && right && left)
@@ -158,15 +190,19 @@ namespace Spider_Man
                         targetDirection = (left.worldAnchorPoint - left.swingingHandle.transform.position).normalized;
                     else if (right.swinging && !left.swinging)
                         targetDirection = (right.worldAnchorPoint - right.swingingHandle.transform.position).normalized;
-                    else
+                    else if(allowWallRun)
                     {
                         targetDirection = alignDive ? Vector3.down : Vector3.up;
+                    }
+                    else
+                    {
+                        targetDirection = startWallRun ? targetDirection : Vector3.up;
                     }
                     if (Vector3.Dot(Player.local.transform.forward, targetDirection) < 0 && alignDive)
                     {
                         targetDirection = Vector3.Reflect(targetDirection, Player.local.transform.forward);
                     }
-
+                    
                     if (!vectorSet)
                     {
                         direction = Vector3.Slerp(direction, targetDirection, ModOptions.alignmentSpeed * Time.deltaTime);
@@ -180,7 +216,7 @@ namespace Spider_Man
                 }
             }
 
-            if (alignPlayerWhileClimbing && right && left)
+            /*if (alignPlayerWhileClimbing && right && left)
             {
                 if (right.swinging || left.swinging) return;
                 var playerClimbLeft = Player.currentCreature.handLeft.climb;
@@ -257,7 +293,7 @@ namespace Spider_Man
                         );
                     }
                 }
-            }
+            }*/
         }
     }
 }

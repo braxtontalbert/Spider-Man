@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Spider_Man
+namespace Spider_Man.Webshooter
 {
     public class DestroyAudioAfterPlay : MonoBehaviour
     {

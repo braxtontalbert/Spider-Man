@@ -4,7 +4,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="662157e0-cda4-4c01-8c5c-aff2c7e17fc0" name="Changes" comment="" />
+    <list default="true" id="662157e0-cda4-4c01-8c5c-aff2c7e17fc0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Bosses/BossLogic/Boss.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Bosses/BossLogic/Phases.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Bosses/GreenGoblin/GliderController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Bosses/PID/PID.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Management/CreatureWebTracker.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Management/PersistenceMapper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Management/VFXPool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Management/WebShooterPersistence.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ImpactWeb/ImpactWeb.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/HitItemWithWeb.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBomb.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBombParticle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebNet/CollisionPerNode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebNet/WebConnector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/CreatureWebTracker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/CutSimpleConcave.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/DecalManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/DestroyAudioAfterPlay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/DestroyAudioAfterPlay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/ManageAutoAlignment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ManageAutoAlignment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/ModOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ModOptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/SnapCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/SnapCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Spider-Man.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Spider-Man.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Spring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Animation/Spring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/TriggerColliderMono.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/WSRagdollHand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/WebBall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBall.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/WebShooterModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/WebShooterModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Steamworks.NET.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Steamworks.NET.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Steamworks.NET.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Steamworks.NET.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,11 +88,32 @@
     <setting file="file://$USER_HOME$/AppData/Local/JetBrains/Shared/vAny/DecompilerCache/decompiler/7F0EC23B-4ACF-4240-BBD0-7AF6BA10FAEE/ee/4a235665/BhapticsHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/05/f25177cb/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/0e/46455ba0/Component.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/23/048b8d31/Bounds.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/24/5e7c8e7f/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/a3/1575a2bb/LineRenderer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/bc/ed98b47a/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/16246c1d3e1f46bd9bff725057a086e11374c0/fd/d91402cc/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3020f90f960f433086d545c4e07afdfd531820/33/63b917b8/Single.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3020f90f960f433086d545c4e07afdfd531820/e3/d8ddb880/Func`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/533ae79f05d34c30a7f8375fc8cd45081bac0/8f/111d6f3d/Joint.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/533ae79f05d34c30a7f8375fc8cd45081bac0/af/b33dffe2/Physics.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c0c221501f3a41f8ac0af9d6a9dc9ff335fd90/45/78eb9338/Queue`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/02/52747929/RagdollHandClimb.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/12/fae8eefc/RagdollHand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/13/6a0861cd/Creature.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/45/e515864a/ArcWire.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/78/3a702657/PlayerControl.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/8c/a8d65d80/ColliderGroup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/91/c6c7a2c6/SpellCastCharge.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/92/0bc752b7/SkillArcwire.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/9b/2bd369ae/RagdollHandPoser.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/b3/e33defe5/Imbue.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/b4/80c085c0/AnimatorBundle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/c5/8ddeedc5/HandPoseData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/d6/fc4c2351/PlayerHand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1ae1a62ffa14c089bc4a38ab0d0f673382600/e4/ccc48f00/SkillSpellPunch.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -54,6 +134,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.editor",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -110,13 +191,21 @@
       <workItem from="1742316005163" duration="1838000" />
       <workItem from="1744217990332" duration="1996000" />
       <workItem from="1745521335867" duration="3950000" />
-      <workItem from="1751240162465" duration="593000" />
+      <workItem from="1751240162465" duration="781000" />
+      <workItem from="1753383075129" duration="8637000" />
+      <workItem from="1753464451015" duration="11142000" />
+      <workItem from="1753544765851" duration="81193000" />
+      <workItem from="1753838668577" duration="70192000" />
+      <workItem from="1754238932557" duration="1400000" />
+      <workItem from="1754240931064" duration="115000" />
+      <workItem from="1754241055518" duration="44599000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityProjectDiscoverer">
     <option name="hasUnityReference" value="true" />

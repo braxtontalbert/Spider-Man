@@ -12,6 +12,7 @@
         <AssemblyName>Spider_Man</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,15 +34,27 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\Newtonsoft.Json.dll</HintPath>
+        </Reference>
         <Reference Include="System"/>
+        <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+          <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+        </Reference>
         <Reference Include="System.Core"/>
         <Reference Include="System.Data"/>
         <Reference Include="System.Xml"/>
         <Reference Include="ThunderRoad">
           <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\ThunderRoad.dll</HintPath>
         </Reference>
+        <Reference Include="Unity.ResourceManager">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\Unity.ResourceManager.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine">
           <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AIModule">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.AIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AnimationModule">
           <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
@@ -55,23 +68,52 @@
         <Reference Include="UnityEngine.CoreModule">
           <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.ParticleSystemModule">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.PhysicsModule">
           <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.VFXModule">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.VFXModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="CreatureWebTracker.cs" />
-        <Compile Include="CutSimpleConcave.cs" />
-        <Compile Include="DecalManager.cs" />
-        <Compile Include="DestroyAudioAfterPlay.cs" />
-        <Compile Include="ManageAutoAlignment.cs" />
-        <Compile Include="ModOptions.cs" />
-        <Compile Include="SnapCheck.cs" />
+        <Compile Include="Bosses\BossLogic\Boss.cs" />
+        <Compile Include="Bosses\BossLogic\Phases.cs" />
+        <Compile Include="Bosses\GreenGoblin\GliderController.cs" />
+        <Compile Include="Bosses\PID\PID.cs" />
+        <Compile Include="Management\CreatureWebTracker.cs" />
+        <Compile Include="Management\ManageAutoAlignment.cs" />
+        <Compile Include="Management\ModOptions.cs" />
+        <Compile Include="Management\PersistenceMapper.cs" />
+        <Compile Include="Management\VFXPool.cs" />
+        <Compile Include="Management\WebShooterPersistence.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="Spring.cs" />
-        <Compile Include="TriggerColliderMono.cs" />
-        <Compile Include="WebBall.cs" />
-        <Compile Include="WebShooterModule.cs" />
+        <Compile Include="Runtime\Constants.cs" />
+        <Compile Include="Runtime\Drawer.cs" />
+        <Compile Include="Runtime\DrawerDir\CubeDrawer.cs" />
+        <Compile Include="Runtime\DrawerDir\LineDrawer.cs" />
+        <Compile Include="Runtime\DrawerDir\PolygonDrawer.cs" />
+        <Compile Include="Runtime\DrawerDir\SquareDrawer.cs" />
+        <Compile Include="Runtime\Element.cs" />
+        <Compile Include="Runtime\Gizmos.cs" />
+        <Compile Include="Runtime\GizmosInstance.cs" />
+        <Compile Include="Webshooter\Animation\Spring.cs" />
+        <Compile Include="Webshooter\DestroyAudioAfterPlay.cs" />
+        <Compile Include="Webshooter\Gadgets\ImpactWeb\ImpactWeb.cs" />
+        <Compile Include="Webshooter\Gadgets\WebBall\HitItemWithWeb.cs" />
+        <Compile Include="Webshooter\Gadgets\WebBall\WebBall.cs" />
+        <Compile Include="Webshooter\Gadgets\WebBomb\WebBomb.cs" />
+        <Compile Include="Webshooter\Gadgets\WebBomb\WebBombParticle.cs" />
+        <Compile Include="Webshooter\Gadgets\WebNet\CollisionPerNode.cs" />
+        <Compile Include="Webshooter\Gadgets\WebNet\WebConnector.cs" />
+        <Compile Include="Webshooter\SnapCheck.cs" />
+        <Compile Include="Webshooter\WebShooterModule.cs" />
+        <Compile Include="Webshooter\WSRagdollHand.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

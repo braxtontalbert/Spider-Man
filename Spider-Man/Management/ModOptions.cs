@@ -1,6 +1,6 @@
 ﻿using ThunderRoad;
 
-namespace Spider_Man
+namespace Spider_Man.Management
 {
     public class ModOptions : ThunderScript
     {
@@ -72,6 +72,10 @@ namespace Spider_Man
         [ModOptionSave]
         [ModOptionSaveValue(true)]
         public static bool alignPlayerWhileSwinging;
+        [ModOption("Realisitic Webline", "Enables/Disables realistic weblines which shortens the webline when it intersects with another object. Inspired by Spider-man 2 the video game.", category = "Spider-Man")]
+        [ModOptionSave]
+        [ModOptionSaveValue(true)]
+        public static bool realisticWeblines;
         
         [ModOption("Auto Reset Align", "Enables/Disables auto adjustment to the normal alignment when Align Player While Swinging is enabled", category = "Spider-Man")]
         [ModOptionSave]
