@@ -21,7 +21,7 @@ namespace Spider_Man.Webshooter.Gadgets
         private bool SpawningHandle { get; set; }
         private RaycastHit webHitSpot;
         private RaycastHit GlobalHit { get; set; }
-        private Item SwingingHandle { get; set; }
+        public Item SwingingHandle { get; set; }
         private Vector3 CurrentWebPosition { get; set; }
         private AudioSource SwingSFX { get; set; }
         public bool IsSwinging { get; set; }
@@ -119,27 +119,20 @@ namespace Spider_Man.Webshooter.Gadgets
         
         void CreateOrValidateLineRenderer()
         {
-            if (!LineRenderer)
-            {
-                LineRenderer = new GameObject().AddComponent<LineRenderer>();
-                LineRenderer.enabled = true;
-                LineRenderer.textureMode = LineTextureMode.Tile;
-                LineRenderer.widthMultiplier = 0.1f;
-                LineRenderer.material = WebShooterPersistence.local.webMaterial;
-                LineRenderer.positionCount = 0;
+            Spring.Reset();
+            LineRenderer = new GameObject().AddComponent<LineRenderer>();
+            LineRenderer.enabled = true;
+            LineRenderer.textureMode = LineTextureMode.Tile;
+            LineRenderer.widthMultiplier = 0.1f;
+            LineRenderer.material = WebShooterPersistence.local.webMaterial;
+            LineRenderer.positionCount = 0;
 
-                HandleRenderer = new GameObject().AddComponent<LineRenderer>();
-                HandleRenderer.enabled = true;
-                HandleRenderer.textureMode = LineTextureMode.Tile;
-                HandleRenderer.widthMultiplier = 0.1f;
-                HandleRenderer.material = WebShooterPersistence.local.webMaterial;
-                HandleRenderer.positionCount = 2;
-            }
-            else
-            {
-                LineRenderer.enabled = true;
-                HandleRenderer.enabled = true;
-            }
+            HandleRenderer = new GameObject().AddComponent<LineRenderer>();
+            HandleRenderer.enabled = true;
+            HandleRenderer.textureMode = LineTextureMode.Tile;
+            HandleRenderer.widthMultiplier = 0.1f;
+            HandleRenderer.material = WebShooterPersistence.local.webMaterial;
+            HandleRenderer.positionCount = 2;
         }
         
         void SetupSwing(Item callback, RaycastHit hit)
@@ -229,6 +222,8 @@ namespace Spider_Man.Webshooter.Gadgets
             Hand = OriginalHand;
             WebConnectedToRb = false;
             if(MainJoint) Destroy(MainJoint);
+            Destroy(LineRenderer.gameObject);
+            Destroy(HandleRenderer.gameObject);
             Destroy(SwingingHandle.gameObject);
         }
         

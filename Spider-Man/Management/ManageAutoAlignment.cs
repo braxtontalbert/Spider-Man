@@ -8,8 +8,8 @@ namespace Spider_Man.Management
     public class ManageAutoAlignment : ThunderScript
     {
         public static ManageAutoAlignment local;
-        public WSRagdollHand left;
-        public WSRagdollHand right;
+        public WsRagdollHand left;
+        public WsRagdollHand right;
 
         public Material materialWeb;
         public Material materiaLWebElevated;
@@ -80,8 +80,8 @@ namespace Spider_Man.Management
                 var toAdd = Object.Instantiate(colliderObject, handLeft.transform);
                 toAdd.transform.position = handLeft.transform.position;
                 toAdd.transform.parent = handLeft.transform;
-                toAdd.AddComponent<WSRagdollHand>().ActivateHand(handLeft);
-                left = toAdd.GetComponent<WSRagdollHand>();
+                toAdd.AddComponent<WsRagdollHand>().ActivateHand(handLeft);
+                left = toAdd.GetComponent<WsRagdollHand>();
                 Player.currentCreature.handLeft.playerHand.controlHand.OnButtonPressEvent += PressedEvent;
             }
 
@@ -97,8 +97,8 @@ namespace Spider_Man.Management
                 var toAdd = Object.Instantiate(colliderObject, handRight.transform);
                 toAdd.transform.position = handRight.transform.position;
                 toAdd.transform.parent = handRight.transform;
-                toAdd.AddComponent<WSRagdollHand>().ActivateHand(handRight);
-                right = toAdd.GetComponent<WSRagdollHand>();
+                toAdd.AddComponent<WsRagdollHand>().ActivateHand(handRight);
+                right = toAdd.GetComponent<WsRagdollHand>();
                 Player.currentCreature.handRight.playerHand.controlHand.OnButtonPressEvent += PressedEvent;
             }
             
@@ -118,7 +118,7 @@ namespace Spider_Man.Management
         private Vector3 gravityNormal;
         private void PressedEvent(PlayerControl.Hand.Button button, bool pressed)
         {
-            if (button == PlayerControl.Hand.Button.AlternateUse && pressed && (!right.swinging || !left.swinging) && allowWallRun)
+            if (button == PlayerControl.Hand.Button.AlternateUse && pressed && (!right.swing.IsSwinging || !left.swing.IsSwinging) && allowWallRun)
             {
                 if (Player.local.handRight.ragdollHand.climb.isGripping)
                 {
@@ -143,6 +143,7 @@ namespace Spider_Man.Management
                         targetDirection = -hit.normal;
                         startWallRun = true;
                     }
+                    
                 }
             }
             /*else if (button == PlayerControl.Hand.Button.AlternateUse && !pressed)
@@ -178,18 +179,18 @@ namespace Spider_Man.Management
                 if (Player.local.autoAlign) Player.local.autoAlign = false;
                 if (!Player.local.locomotion.isGrounded)
                 {
-                    if (left.swinging && right.swinging)
+                    if (left.swing.IsSwinging && right.swing.IsSwinging)
                     {
-                        targetDirection = (right.worldAnchorPoint - left.worldAnchorPoint).normalized;
-                        float distanceHalved = Vector3.Distance(right.worldAnchorPoint, left.worldAnchorPoint) / 2f;
-                        var position = left.worldAnchorPoint + (direction * distanceHalved);
+                        targetDirection = (right.swing.WorldAnchorPoint - left.swing.WorldAnchorPoint).normalized;
+                        float distanceHalved = Vector3.Distance(right.swing.WorldAnchorPoint, left.swing.WorldAnchorPoint) / 2f;
+                        var position = left.swing.WorldAnchorPoint + (direction * distanceHalved);
                         targetDirection = (position - Player.currentCreature.ragdoll.headPart.transform.position)
                             .normalized;
                     }
-                    else if (left.swinging && !right.swinging)
-                        targetDirection = (left.worldAnchorPoint - left.swingingHandle.transform.position).normalized;
-                    else if (right.swinging && !left.swinging)
-                        targetDirection = (right.worldAnchorPoint - right.swingingHandle.transform.position).normalized;
+                    else if (left.swing.IsSwinging && !right.swing.IsSwinging)
+                        targetDirection = (left.swing.WorldAnchorPoint - left.swing.SwingingHandle.transform.position).normalized;
+                    else if (right.swing.IsSwinging && !left.swing.IsSwinging)
+                        targetDirection = (right.swing.WorldAnchorPoint - right.swing.SwingingHandle.transform.position).normalized;
                     else if(allowWallRun)
                     {
                         targetDirection = alignDive ? Vector3.down : Vector3.up;

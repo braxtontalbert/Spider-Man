@@ -268,3 +268,5 @@ C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\obj\Debug\Spider_Man.pdb
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\obj\Debug\Spider-Man.csproj.Up2Date
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\System.Buffers.xml
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\System.Buffers.dll
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Common.dll
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Common.pdb

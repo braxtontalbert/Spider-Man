@@ -2,6 +2,12 @@
 
 namespace Spider_Man.Management
 {
+
+    enum SpellOption
+    {
+        Gaze,
+        Point
+    }
     public class ModOptions : ThunderScript
     {
         public static int quality;

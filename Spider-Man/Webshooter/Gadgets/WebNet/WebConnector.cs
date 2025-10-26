@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Spider_Man.Management;
 using UnityEngine;
 
 namespace Spider_Man.Webshooter.Gadgets.WebNet
@@ -35,7 +36,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebNet
             {
                 node.AddComponent<CollisionPerNode>();
             }
-            this.lineMaterial = WSRagdollHand.webtexture;
+            this.lineMaterial = WebShooterPersistence.local.webMaterial;
             this.normal = normal;
         }
 

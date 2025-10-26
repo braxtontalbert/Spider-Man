@@ -16,7 +16,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
                 this.gameObject.GetComponent<Item>().physicBody.rigidBody.isKinematic = true;
                 Item.OnItemDespawn += item => { Destroy(this);};
                 var spawnPoint = other.GetContact(0).point + (-other.GetContact(0).normal * 0.2f);
-                Catalog.InstantiateAsync("webNet", spawnPoint,
+                Catalog.InstantiateAsync("webNet" as object, spawnPoint,
                     this.gameObject.transform.rotation, null,
                     callback =>
                     {

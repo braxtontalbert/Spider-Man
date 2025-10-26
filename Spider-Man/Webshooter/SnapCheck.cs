@@ -10,9 +10,9 @@ namespace Spider_Man.Webshooter
         private Item item;
         private RagdollHand hand;
         private bool leftTriggerSet = false;
-        private WSRagdollHand triggerLEft;
+        private WsRagdollHand triggerLEft;
         private bool rightTriggerSet = false;
-        private WSRagdollHand triggerRight;
+        private WsRagdollHand triggerRight;
         private ManageAutoAlignment autoAlign;
         private void Start()
         {
@@ -27,6 +27,12 @@ namespace Spider_Man.Webshooter
 
         private void unGrabEvent(Handle handle, RagdollHand ragdollhand, bool throwing)
         {
+            if (ManageAutoAlignment.local.right.hand.Equals(ragdollhand.otherHand) &&
+                ManageAutoAlignment.local.right.itemAttached) return;
+            
+            if (ManageAutoAlignment.local.left.hand.Equals(ragdollhand.otherHand) &&
+                ManageAutoAlignment.local.left.itemAttached) return;
+            
             if (Vector3.Distance(item.transform.position, ragdollhand.otherHand.transform.position) <= snapDistance)
             {
                 Snap(ragdollhand.otherHand, item);

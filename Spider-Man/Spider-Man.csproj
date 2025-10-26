@@ -34,8 +34,14 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Common">
+          <HintPath>..\..\Common\Common\bin\Debug\net9.0\Common.dll</HintPath>
+        </Reference>
         <Reference Include="Newtonsoft.Json">
           <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="SplineMeshFramework">
+          <HintPath>..\..\SplineMeshFramework\SplineMeshFramework\obj\Debug\SplineMeshFramework.dll</HintPath>
         </Reference>
         <Reference Include="System"/>
         <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -101,19 +107,27 @@
         <Compile Include="Runtime\GizmosInstance.cs" />
         <Compile Include="Webshooter\Animation\Spring.cs" />
         <Compile Include="Webshooter\DestroyAudioAfterPlay.cs" />
+        <Compile Include="Webshooter\Gadgets\IGadget.cs" />
         <Compile Include="Webshooter\Gadgets\ImpactWeb\ImpactWeb.cs" />
+        <Compile Include="Webshooter\Gadgets\ImpactWeb\ImpactWebGadget.cs" />
+        <Compile Include="Webshooter\Gadgets\Swing\SwingGadget.cs" />
         <Compile Include="Webshooter\Gadgets\WebBall\HitItemWithWeb.cs" />
         <Compile Include="Webshooter\Gadgets\WebBall\WebBall.cs" />
+        <Compile Include="Webshooter\Gadgets\WebBall\WebBallGadget.cs" />
         <Compile Include="Webshooter\Gadgets\WebBomb\WebBomb.cs" />
         <Compile Include="Webshooter\Gadgets\WebBomb\WebBombParticle.cs" />
         <Compile Include="Webshooter\Gadgets\WebNet\CollisionPerNode.cs" />
         <Compile Include="Webshooter\Gadgets\WebNet\WebConnector.cs" />
+        <Compile Include="Webshooter\MeshRope.cs" />
         <Compile Include="Webshooter\SnapCheck.cs" />
         <Compile Include="Webshooter\WebShooterModule.cs" />
         <Compile Include="Webshooter\WSRagdollHand.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Analyzer Include="..\packages\Microsoft.Unity.Analyzers.1.24.0\analyzers\dotnet\cs\Microsoft.Unity.Analyzers.dll" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

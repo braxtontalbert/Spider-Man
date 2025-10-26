@@ -14,6 +14,7 @@ namespace Spider_Man.Management
     public class WebShooterPersistence : ThunderScript
     {
         public static WebShooterPersistence local;
+        public Material webMaterial;
         public string characterID;
         public Dictionary<String, bool> sideData;
         private bool waitingForData = false;
@@ -26,6 +27,13 @@ namespace Spider_Man.Management
             EventManager.onLevelUnload += LevelUnloadEvent;
             Application.quitting += OnApplicationQuit;
             base.ScriptLoaded(modData);
+            if (webMaterial == null)
+            {
+                Catalog.LoadAssetAsync<Material>("Webtexture", callback =>
+                {
+                    webMaterial = callback;
+                }, "Webmaterial");
+            }
             Player.onSpawn += player =>
             {
                 player.onCreaturePossess += creature =>
@@ -46,13 +54,6 @@ namespace Spider_Man.Management
                             }
                         }
                     }
-                    
-                    Catalog.InstantiateAsync("goblinGlider", Vector3.zero, Quaternion.identity, null, go =>
-                    {
-                        go.transform.position = Player.currentCreature.transform.position + Vector3.up * 2f;
-                        go.transform.rotation = Quaternion.LookRotation(Player.currentCreature.transform.forward);
-                        go.AddComponent<GliderController>();
-                    }, "GoblinGliderHandler");
                 };
                     
             };
