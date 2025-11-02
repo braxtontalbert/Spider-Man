@@ -3,6 +3,7 @@ using Spider_Man.Management;
 using Spider_Man.Webshooter.Animation;
 using ThunderRoad;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Spider_Man.Webshooter.Gadgets
 {
@@ -76,13 +77,18 @@ namespace Spider_Man.Webshooter.Gadgets
             }
         }
 
-        public IEnumerator WaitWindow()
+        public IEnumerator WaitWindow(IGadget currentGadget)
         {
+            currentGadget.DisallowItemGrab = true;
             yield return new WaitForSeconds(0.5f);
-
+            currentGadget.DisallowItemGrab = false;
             PressCount = 0;
             Coroutine = null;
         }
+
+        public bool DisallowItemGrab { get; set; }
+
+        public bool AlreadyAboveWhenSwinging { get; set; }
         
         void StartSwingCheck()
         {
@@ -150,7 +156,8 @@ namespace Spider_Man.Webshooter.Gadgets
             
             SwingingHandle.OnUngrabEvent += UnGrabbedSwinging;
             SetSpringJoint(hit);
-            
+
+            Hand.UnGrab(false);
             Handle handle = SwingingHandle.mainHandleRight;
             Hand.Grab(handle, handle.GetDefaultOrientation(Hand.side), handle.GetDefaultAxisLocalPosition(),
                 true);
@@ -172,6 +179,10 @@ namespace Spider_Man.Webshooter.Gadgets
             {
                 WebConnectedToRb = true;
                 CurrentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
+                if (CurrentAnchorPoint.y > Player.local.creature.locomotion.transform.position.y)
+                {
+                    AlreadyAboveWhenSwinging = true;
+                }
                 MainJoint = SwingingHandle.gameObject.AddComponent<SpringJoint>();
                 MainJoint.autoConfigureConnectedAnchor = false;
                 MainJoint.connectedAnchor = hit.collider.transform.TransformPoint(CurrentAnchorPoint);
@@ -225,6 +236,7 @@ namespace Spider_Man.Webshooter.Gadgets
             Destroy(LineRenderer.gameObject);
             Destroy(HandleRenderer.gameObject);
             Destroy(SwingingHandle.gameObject);
+            AlreadyAboveWhenSwinging = false;
         }
         
         void DrawWeb()
@@ -345,6 +357,7 @@ namespace Spider_Man.Webshooter.Gadgets
             }
         }
         
+
         bool AllowIntersections() => LineRenderer && ModOptions.realisticWeblines && LineRenderer.positionCount > 0;
 
         private bool ReelIn() => SwingingHandle && SwingingHandle.mainHandler &&
@@ -356,10 +369,14 @@ namespace Spider_Man.Webshooter.Gadgets
                           Hand.playerHand.controlHand.alternateUsePressed;
         
         bool HandIsPoser(HandPoseData data1, HandPoseData data2) => data1.Equals(data2);
+        
+        Vector3 previousVelocity = Vector3.zero;
+        Vector3 currentVelocity = Vector3.zero;
         private void Update()
         {
             if (IsSwinging)
             {
+                currentVelocity = Hand.Velocity();
                 if(AllowIntersections()) CheckForWeblineIntersections();
                 if (ReelIn())
                 {
@@ -369,6 +386,19 @@ namespace Spider_Man.Webshooter.Gadgets
                 {
                     if (MainJoint && MainJoint.maxDistance >= MainJoint.minDistance) MainJoint.maxDistance += ModOptions.reelOutPower * Time.deltaTime;
                 }
+                bool isAccelerating = currentVelocity.magnitude > previousVelocity.magnitude + 0.14f;
+                var targetDirection = SwingingHandle.transform.position - webHitSpot.point;
+                
+                if (isAccelerating)
+                {
+                    // Check if velocity direction aligns with target direction
+                    float alignment = Vector3.Dot(currentVelocity.normalized, -targetDirection.normalized);
+                    if (alignment < -0.65f)
+                    {
+                        Hand.creature.AddForce(-targetDirection.normalized * ModOptions.webZipPower, ForceMode.Impulse);
+                    }
+                }
+                previousVelocity = currentVelocity;
             }
             else
             {

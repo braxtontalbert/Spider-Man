@@ -1,6 +1,7 @@
 ﻿using Spider_Man.Webshooter;
 using ThunderRoad;
 using UnityEngine;
+using UnityEngine.VFX;
 using Object = UnityEngine.Object;
 
 namespace Spider_Man.Management
@@ -20,8 +21,9 @@ namespace Spider_Man.Management
         private Vector3 firstDirection;
         private Vector3 lastDirectionAfterSwingEnd;
         private bool lastDirectionSet;
-        
         private Vector3 autoAlignDefault;
+
+        public GameObject slamEffect;
 
         public override void ScriptLoaded(ModManager.ModData modData)
         {
@@ -39,6 +41,10 @@ namespace Spider_Man.Management
             {
                 this.materiaLWebElevated = material;
             }, "WebElevatedMaterialHandler");
+            Catalog.LoadAssetAsync<GameObject>("groundSlam", o =>
+            {
+                slamEffect = o;
+            }, "SlamHandler");
             Player.onSpawn += OnSpawn;
             EventManager.onCreatureDespawn += CreatureDespawn;
         }
@@ -47,6 +53,7 @@ namespace Spider_Man.Management
         {
             base.ScriptUnload();
             EventManager.onCreatureDespawn -= CreatureDespawn;
+            Player.local.locomotion.OnGroundEvent -= OnLand;
         }
 
         private void CreatureDespawn(Creature creature1, EventTime eventtime)
@@ -60,6 +67,49 @@ namespace Spider_Man.Management
                 Object.Destroy(webtrackerRef); 
             }
         }
+        Collider[] array = new Collider[50];
+        private const float SlamRadius = 10f;
+        private const float ExplosionForce = 2000f;
+        private const float UpwardModifier = 10f;
+        private const int SlamMask = (1 << 3) | (1 << 9); // Only include layers 3 and 9
+        private void OnLand(Locomotion locomotion, Vector3 groundPoint, Vector3 velocity, Collider groundCollider)
+        {
+            if (velocity.magnitude > 30f)
+            {
+                GameObject go = GameObject.Instantiate(ManageAutoAlignment.local.slamEffect);
+                go.transform.position = groundPoint;
+                go.GetComponent<VisualEffect>().Play();
+                go.GetComponent<AudioSource>().Play();
+
+                
+                int hitCount = Physics.OverlapSphereNonAlloc(groundPoint, SlamRadius, array, SlamMask);
+                
+                for (int i = 0; i < hitCount; i++)
+                {
+                    var collider = array[i];
+                    if (collider == null || !collider.attachedRigidbody) continue;
+                    Rigidbody refRB = collider.GetComponentInParent<Rigidbody>();
+                    if (refRB == null) continue;
+                    var hitCreature = collider.GetComponentInParent<Creature>();
+                    var hitItem =  collider.GetComponentInParent<Item>();
+                    float mass = collider.attachedRigidbody.mass;
+
+                    if (hitCreature != null && !hitCreature.isPlayer)
+                    {
+                        hitCreature.ragdoll.SetState(Ragdoll.State.Destabilized, true);
+
+                        var rb = collider.attachedRigidbody;
+                        if (rb != null && rb.isKinematic) rb.isKinematic = false;
+
+                        rb.AddExplosionForce(ExplosionForce, groundPoint, SlamRadius, UpwardModifier, ForceMode.Impulse);
+                    }
+                    else if (hitItem != null)
+                    {
+                        collider?.attachedRigidbody?.AddExplosionForce(mass * ExplosionForce, groundPoint, SlamRadius, UpwardModifier);
+                    }
+                }
+            }
+        }
 
         private void OnSpawn(Player player)
         {
@@ -68,6 +118,7 @@ namespace Spider_Man.Management
 
         private void Possess(Creature obj)
         {
+            Player.local.locomotion.OnGroundEvent += OnLand;
             if (!left)
             {
                 var handLeft = obj.handLeft;
@@ -179,7 +230,8 @@ namespace Spider_Man.Management
                 if (Player.local.autoAlign) Player.local.autoAlign = false;
                 if (!Player.local.locomotion.isGrounded)
                 {
-                    if (left.swing.IsSwinging && right.swing.IsSwinging)
+                    
+                    if (left.swing.IsSwinging && right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging))
                     {
                         targetDirection = (right.swing.WorldAnchorPoint - left.swing.WorldAnchorPoint).normalized;
                         float distanceHalved = Vector3.Distance(right.swing.WorldAnchorPoint, left.swing.WorldAnchorPoint) / 2f;
@@ -187,9 +239,10 @@ namespace Spider_Man.Management
                         targetDirection = (position - Player.currentCreature.ragdoll.headPart.transform.position)
                             .normalized;
                     }
-                    else if (left.swing.IsSwinging && !right.swing.IsSwinging)
+                    else if (left.swing.IsSwinging && !right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging))
                         targetDirection = (left.swing.WorldAnchorPoint - left.swing.SwingingHandle.transform.position).normalized;
-                    else if (right.swing.IsSwinging && !left.swing.IsSwinging)
+                    else if (right.swing.IsSwinging && !left.swing.IsSwinging && 
+                             (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging))
                         targetDirection = (right.swing.WorldAnchorPoint - right.swing.SwingingHandle.transform.position).normalized;
                     else if(allowWallRun)
                     {

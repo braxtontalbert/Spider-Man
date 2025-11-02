@@ -13,6 +13,7 @@ namespace Spider_Man.Webshooter.Gadgets
         bool ItemAttached { get; set; }
         RagdollHand Hand { get; set; }
         void Activate(Item item, RagdollHand hand, ref bool itemAttached);
-        IEnumerator WaitWindow();
+        IEnumerator WaitWindow(IGadget gadget);
+        bool DisallowItemGrab { get; set; }
     }
 }

@@ -19,11 +19,13 @@ namespace Spider_Man.Management
         public static int rotation;
         public static int reelInPower;
         public static int reelOutPower;
+        public static int webZipPower;
 
         public static float alignmentSpeed;
 
         public static ModOptionInt[] intOption = new ModOptionInt[1001];
         public static ModOptionInt[] reelOption = new ModOptionInt[21];
+        public static ModOptionInt[] webZipPowerOption = new ModOptionInt[1001];
         public static ModOptionInt[] rotationOption = new ModOptionInt[361];
         public static ModOptionFloat[] floatOption = new ModOptionFloat[101];
         public static ModOptionFloat[] strengthOption = new ModOptionFloat[1601];
@@ -45,6 +47,10 @@ namespace Spider_Man.Management
             for(int i = 0; i < reelOption.Length; i++)
             {
                 reelOption[i] = new ModOptionInt((i + 1).ToString(), i+1);
+            }
+            for(int i = 0; i < webZipPowerOption.Length; i++)
+            {
+                webZipPowerOption[i] = new ModOptionInt((i + 1).ToString(), i + 1);
             }
             for(int i = 0; i < alignmentSpeedOption.Length; i++)
             {
@@ -82,11 +88,18 @@ namespace Spider_Man.Management
         [ModOptionSave]
         [ModOptionSaveValue(true)]
         public static bool realisticWeblines;
-        
-        [ModOption("Auto Reset Align", "Enables/Disables auto adjustment to the normal alignment when Align Player While Swinging is enabled", category = "Spider-Man")]
+
+        [ModOption("Web-Zipping",
+            "Enables/Disables the ability to webzip. To Web-Zip, pull your active webline in the opposite direction of the line to pull yourself towards the webline anchor point.",
+            category = "Spider-Man")]
         [ModOptionSave]
         [ModOptionSaveValue(true)]
-        public static bool autoResetAlign;
+        public static bool allowWebZipping;
+        
+        /*[ModOption("Auto Reset Align", "Enables/Disables auto adjustment to the normal alignment when Align Player While Swinging is enabled", category = "Spider-Man")]
+        [ModOptionSave]
+        [ModOptionSaveValue(true)]
+        public static bool autoResetAlign;*/
 
         [ModOptionSlider]
         [ModOptionCategory("Spider-Man", 1)]
@@ -188,5 +201,14 @@ namespace Spider_Man.Management
             reelOutPower = value;
         }
         
+        [ModOptionSlider]
+        [ModOptionCategory("Spider-Man", 11)]
+        [ModOption("Web-Zip: Power", "Modifies how strong your web-pull is.", nameof(webZipPowerOption), defaultValueIndex = 200)]
+        [ModOptionSave]
+        [ModOptionSaveValue(true)]
+        private static void WebZipPowerOption(int value = 200)
+        {
+            webZipPower = value;
+        }
     }
 }

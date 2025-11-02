@@ -45,7 +45,7 @@ namespace Spider_Man.Webshooter
             {
                 case Side.Right:
                     ManageAutoAlignment.local.right.ActivateItem(item);
-                    ManageAutoAlignment.local.right.itemAttached = true;
+                    ManageAutoAlignment.local.right.itemAttached = true; 
                     ManageAutoAlignment.local.right.item.DisallowDespawn = true;
                     Player.fallDamage = false;
                     GameManager.SetFreeClimb(true);

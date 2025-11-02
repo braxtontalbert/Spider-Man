@@ -32,8 +32,6 @@ C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\UnityEngine.Spatial
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Oculus.VR.dll
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Oculus.Platform.dll
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\PICO.Platform.dll
-C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Steamworks.NET.dll
-C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Viveport.dll
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Unity.InputSystem.dll
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Newtonsoft.Json.dll
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\UnityEngine.DirectorModule.dll
@@ -160,8 +158,6 @@ C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\UnityEngine.Spatial
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Oculus.VR.pdb
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Oculus.Platform.pdb
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\PICO.Platform.pdb
-C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Steamworks.NET.pdb
-C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Viveport.pdb
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Unity.InputSystem.pdb
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Newtonsoft.Json.pdb
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\UnityEngine.DirectorModule.pdb
@@ -270,3 +266,12 @@ C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\System.Buffers.xml
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\System.Buffers.dll
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Common.dll
 C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Common.pdb
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\SplineMeshFramework.dll
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\com.rlabrecque.steamworks.net.dll
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\TriInspector.dll
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\Mono.Cecil.dll
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\HybridCLR.Runtime.dll
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\SplineMeshFramework.pdb
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\com.rlabrecque.steamworks.net.pdb
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\TriInspector.pdb
+C:\Users\braxt\RiderProjects\Spider-Man\Spider-Man\bin\Debug\HybridCLR.Runtime.pdb

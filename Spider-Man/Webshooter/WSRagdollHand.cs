@@ -91,17 +91,18 @@ namespace Spider_Man.Webshooter
 
             if (hand.poser.targetHandPoseData.Equals(this.ThwipHandlePose)) hand.poser.ResetTargetPose();
         }
-
+        
         void CheckDoubleTapPerGadget(IGadget currentGadget)
         {
             currentGadget.PressCount++;
             if (currentGadget.PressCount == 1)
             {
-                currentGadget.Coroutine = StartCoroutine(currentGadget.WaitWindow());
+                currentGadget.Coroutine = StartCoroutine(currentGadget.WaitWindow(currentGadget));
             }
             else if (currentGadget.PressCount == 2)
             {
                 if (currentGadget.Coroutine != null) StopCoroutine(currentGadget.Coroutine);
+                if(this.hand.isGrabbed) return;
                 currentGadget.Coroutine = null;
                 currentGadget.PressCount = 0;
                 currentGadget.Activate(this.item, this.hand, ref this.itemAttached);

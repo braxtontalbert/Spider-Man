@@ -27,14 +27,16 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
             SpawnWebBall();
         }
 
-        public IEnumerator WaitWindow()
+        public IEnumerator WaitWindow(IGadget gadget)
         {
             yield return new WaitForSeconds(0.5f);
 
             PressCount = 0;
             Coroutine = null;
         }
-        
+
+        public bool DisallowItemGrab { get; set; }
+
         void SpawnWebBall()
         {
             if (!SpawningWebBall)

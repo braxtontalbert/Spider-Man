@@ -31,13 +31,15 @@ namespace Spider_Man.Webshooter.Gadgets
             SpawnImpactWeb();
         }
 
-        public IEnumerator WaitWindow()
+        public IEnumerator WaitWindow(IGadget gadget)
         {
             yield return new WaitForSeconds(0.5f);
 
             PressCount = 0;
             Coroutine = null;
         }
+
+        public bool DisallowItemGrab { get; set; }
 
         void SpawnImpactWeb()
         {
