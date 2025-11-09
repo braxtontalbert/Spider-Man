@@ -5,30 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="662157e0-cda4-4c01-8c5c-aff2c7e17fc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWeb.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWebGadget.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBombGadget.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/CreatureWebTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/CreatureWebTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/ManageAutoAlignment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ManageAutoAlignment.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/ModOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ModOptions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/WebShooterPersistence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/WebShooterPersistence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Spider-Man.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Spider-Man.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ImpactWeb/ImpactWebGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ImpactWeb/ImpactWebGadget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/Swing/SwingGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/Swing/SwingGadget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/HitItemWithWeb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/HitItemWithWeb.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBall.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBallGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBallGadget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBomb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBomb.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBombParticle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBombParticle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/WSRagdollHand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/WSRagdollHand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +155,7 @@
       <workItem from="1758919782536" duration="2877000" />
       <workItem from="1761499204097" duration="530000" />
       <workItem from="1762103814367" duration="56816000" />
-      <workItem from="1762438287492" duration="48831000" />
+      <workItem from="1762438287492" duration="50549000" />
     </task>
     <servers />
   </component>
