@@ -107,6 +107,8 @@
         <Compile Include="Runtime\GizmosInstance.cs" />
         <Compile Include="Webshooter\Animation\Spring.cs" />
         <Compile Include="Webshooter\DestroyAudioAfterPlay.cs" />
+        <Compile Include="Webshooter\Gadgets\ElectricWeb\ElectricWeb.cs" />
+        <Compile Include="Webshooter\Gadgets\ElectricWeb\ElectricWebGadget.cs" />
         <Compile Include="Webshooter\Gadgets\IGadget.cs" />
         <Compile Include="Webshooter\Gadgets\ImpactWeb\ImpactWeb.cs" />
         <Compile Include="Webshooter\Gadgets\ImpactWeb\ImpactWebGadget.cs" />
@@ -115,6 +117,7 @@
         <Compile Include="Webshooter\Gadgets\WebBall\WebBall.cs" />
         <Compile Include="Webshooter\Gadgets\WebBall\WebBallGadget.cs" />
         <Compile Include="Webshooter\Gadgets\WebBomb\WebBomb.cs" />
+        <Compile Include="Webshooter\Gadgets\WebBomb\WebBombGadget.cs" />
         <Compile Include="Webshooter\Gadgets\WebBomb\WebBombParticle.cs" />
         <Compile Include="Webshooter\Gadgets\WebNet\CollisionPerNode.cs" />
         <Compile Include="Webshooter\Gadgets\WebNet\WebConnector.cs" />

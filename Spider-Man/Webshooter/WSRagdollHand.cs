@@ -1,6 +1,8 @@
 ﻿using Common;
 using Spider_Man.Webshooter.Gadgets;
+using Spider_Man.Webshooter.Gadgets.ElectricWeb;
 using Spider_Man.Webshooter.Gadgets.WebBall;
+using Spider_Man.Webshooter.Gadgets.WebBomb;
 using ThunderRoad;
 using UnityEngine;
 using Pointer = ThunderRoad.Pointer;
@@ -38,6 +40,10 @@ namespace Spider_Man.Webshooter
             gadgets.Add(webBallGadget);
             var impactWebGadget = new GameObject().AddComponent<ImpactWebGadget>();
             gadgets.Add(impactWebGadget);
+            var webBombGadget = new GameObject().AddComponent<WebBombGadget>();
+            gadgets.Add(webBombGadget);
+            var electricWeb = new GameObject().AddComponent<ElectricWebGadget>();
+            gadgets.Add(electricWeb);
         }
 
         void InstantiateSFX()
@@ -114,6 +120,7 @@ namespace Spider_Man.Webshooter
             if (gadgets.Count > 1)
             {
                 gadgets.CycleLeft();
+                alternateSfx.gameObject.transform.position = this.item.gameObject.transform.position;
                 alternateSfx.Play();
             }
         }

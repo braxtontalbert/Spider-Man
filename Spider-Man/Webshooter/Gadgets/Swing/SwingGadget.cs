@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Spider_Man.Management;
 using Spider_Man.Webshooter.Animation;
 using ThunderRoad;
 using UnityEngine;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
 namespace Spider_Man.Webshooter.Gadgets
 {
@@ -18,6 +22,10 @@ namespace Spider_Man.Webshooter.Gadgets
         public RagdollHand Hand { get; set; }
 
         //Custom members
+        public bool AttachedToCreature { get; set; }
+        public bool AttachedToItem { get; set; }
+        public Creature hitCreature { get; set; }
+        public Item hitItem { get; set; }
         private RagdollHand OriginalHand { get; set; }
         private bool SpawningHandle { get; set; }
         private RaycastHit webHitSpot;
@@ -48,9 +56,8 @@ namespace Spider_Man.Webshooter.Gadgets
             ItemAttached = itemAttached;
             SetupSpring();
             HandPoseData = Catalog.GetData<HandPoseData>(ThwipHandleString + Hand.side.ToString());
+            
             InstantiateSFX();
-            
-            
             StartSwingCheck();
         }
         
@@ -93,7 +100,7 @@ namespace Spider_Man.Webshooter.Gadgets
         void StartSwingCheck()
         {
             if (Physics.Raycast(Item.flyDirRef.transform.position + (Item.flyDirRef.transform.forward * 0.4f), Item.flyDirRef.transform.forward, out var hit,
-                    80f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) && !SpawningHandle)
+                    80f, ((Physics.DefaultRaycastLayers) | (1 << 9) | (1 << 3) ), QueryTriggerInteraction.Ignore) && !SpawningHandle)
             {
                 webHitSpot = hit;
                 SpawningHandle = true;
@@ -153,7 +160,7 @@ namespace Spider_Man.Webshooter.Gadgets
             
             SwingingHandle.transform.position = Hand.transform.position;
             CurrentWebPosition = SwingingHandle.flyDirRef.transform.position;
-            
+            SwingingHandle.OnUngrabEvent -= UnGrabbedSwinging;
             SwingingHandle.OnUngrabEvent += UnGrabbedSwinging;
             SetSpringJoint(hit);
 
@@ -161,7 +168,7 @@ namespace Spider_Man.Webshooter.Gadgets
             Handle handle = SwingingHandle.mainHandleRight;
             Hand.Grab(handle, handle.GetDefaultOrientation(Hand.side), handle.GetDefaultAxisLocalPosition(),
                 true);
-            
+            Hand.playerHand.controlHand.gripPressed = true;
             SwingSFX.pitch = Random.Range(0.9f, 1.1f);
             SwingSFX.Play();
             
@@ -173,34 +180,117 @@ namespace Spider_Man.Webshooter.Gadgets
         {
             BreakSwing();
         }
+
+        private GameObject anchorObj;
+        private SpringJoint jnt;
         void SetSpringJoint(RaycastHit hit)
         {
             if (hit.collider)
             {
-                WebConnectedToRb = true;
-                CurrentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
-                if (CurrentAnchorPoint.y > Player.local.creature.locomotion.transform.position.y)
+                if (hit.collider.gameObject.GetComponentInParent<Item>() is Item item)
                 {
-                    AlreadyAboveWhenSwinging = true;
-                }
-                MainJoint = SwingingHandle.gameObject.AddComponent<SpringJoint>();
-                MainJoint.autoConfigureConnectedAnchor = false;
-                MainJoint.connectedAnchor = hit.collider.transform.TransformPoint(CurrentAnchorPoint);
+                    AttachedToItem = true;
+                    hitItem = item;
                     
-                MainJoint.maxDistance =
-                    Vector3.Distance( MainJoint.connectedAnchor, SwingingHandle.flyDirRef.transform.position) * 0.95f;
-                MainJoint.minDistance =
-                    Vector3.Distance( MainJoint.connectedAnchor, SwingingHandle.flyDirRef.transform.position) * 0f;
-                MainJoint.spring = 130.5f;
-                MainJoint.damper = 20f;
-                MainJoint.massScale = Hand.ragdoll.totalMass / Hand.ragdolledMass;
+                    WebConnectedToRb = true;
+                    CurrentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
+                    if (hit.point.y > Player.local.head.transform.position.y)
+                    {
+                        AlreadyAboveWhenSwinging = true;
+                    }
 
+                    anchorObj = new GameObject("WebAnchor");
+                    anchorObj.transform.position = SwingingHandle.flyDirRef.transform.position;
+                    Rigidbody anchorRb = anchorObj.AddComponent<Rigidbody>();
+                    anchorRb.isKinematic = true;   // this makes it an immovable anchor
 
-                MainJoint.breakForce = Mathf.Infinity;
-                MainJoint.breakTorque = Mathf.Infinity;
-                if (hit.collider.gameObject.GetComponentInParent<Creature>() is Creature creature)
+// Add the joint on the creature
+                    jnt = hitItem.gameObject.AddComponent<SpringJoint>();
+                    jnt.autoConfigureConnectedAnchor = false;
+
+// Connect to the static anchor instead of the player
+                    jnt.connectedBody = anchorRb;
+                    jnt.anchor = hitItem.gameObject.transform.InverseTransformPoint(hit.point);
+                    jnt.connectedAnchor = Vector3.zero;
+
+// Spring parameters
+                    float dist = Vector3.Distance(
+                        hitItem.gameObject.transform.position,
+                        anchorObj.transform.position
+                    );
+                    jnt.minDistance = 0f;
+                    jnt.maxDistance = dist * 1f;
+                    jnt.spring = 250f;
+                    jnt.damper = 10f;
+                    jnt.massScale = 1f;
+                    jnt.breakForce = Mathf.Infinity;
+                    jnt.breakTorque = Mathf.Infinity;
+                }
+                else if (hit.collider.gameObject.GetComponentInParent<Creature>() is Creature creature)
                 {
-                    creature.locomotion.flyDrag = Player.local.locomotion.flyDrag;
+                    AttachedToCreature = true;
+                    hitCreature = creature;
+                    
+                    WebConnectedToRb = true;
+                    CurrentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
+                    if (hit.point.y > Player.local.head.transform.position.y)
+                    {
+                        AlreadyAboveWhenSwinging = true;
+                    }
+
+                    anchorObj = new GameObject("WebAnchor");
+                    anchorObj.transform.position = SwingingHandle.flyDirRef.transform.position;
+                    Rigidbody anchorRb = anchorObj.AddComponent<Rigidbody>();
+                    anchorRb.isKinematic = true;   // this makes it an immovable anchor
+
+// Add the joint on the creature
+                    jnt = hitCreature.ragdoll.targetPart.gameObject.AddComponent<SpringJoint>();
+                    jnt.autoConfigureConnectedAnchor = false;
+
+// Connect to the static anchor instead of the player
+                    jnt.connectedBody = anchorRb;
+                    jnt.anchor = hitCreature.ragdoll.targetPart.transform.InverseTransformPoint(hit.point);
+                    jnt.connectedAnchor = Vector3.zero;
+
+// Spring parameters
+                    float dist = Vector3.Distance(
+                        hitCreature.ragdoll.targetPart.transform.position,
+                        anchorObj.transform.position
+                    );
+                    jnt.minDistance = 0f;
+                    jnt.maxDistance = dist * 1f;
+                    jnt.spring = 4000f;
+                    jnt.damper = 80f;
+                    jnt.massScale = 1f;
+                    jnt.breakForce = Mathf.Infinity;
+                    jnt.breakTorque = Mathf.Infinity;
+                }
+                else {
+                    WebConnectedToRb = true;
+                    CurrentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
+                    if (hit.point.y > Player.local.head.transform.position.y)
+                    {
+                        AlreadyAboveWhenSwinging = true;
+                    }
+
+                    MainJoint = SwingingHandle.gameObject.AddComponent<SpringJoint>();
+                    MainJoint.autoConfigureConnectedAnchor = false;
+                    MainJoint.connectedAnchor = hit.collider.transform.TransformPoint(CurrentAnchorPoint);
+
+                    MainJoint.maxDistance =
+                        Vector3.Distance(MainJoint.connectedAnchor, SwingingHandle.flyDirRef.transform.position) *
+                        0.95f;
+                    MainJoint.minDistance =
+                        Vector3.Distance(MainJoint.connectedAnchor, SwingingHandle.flyDirRef.transform.position) * 0f;
+                    MainJoint.spring = 130.5f;
+                    MainJoint.damper = 20f;
+                    MainJoint.massScale = Hand.ragdoll.totalMass / Hand.ragdolledMass;
+
+
+                    MainJoint.breakForce = Mathf.Infinity;
+                    MainJoint.breakTorque = Mathf.Infinity;
+                    AttachedToCreature = false;
+                    AttachedToItem = false;
                 }
             }
             else
@@ -208,6 +298,12 @@ namespace Spider_Man.Webshooter.Gadgets
                 MainJoint = SwingingHandle.gameObject.AddComponent<SpringJoint>();
                 MainJoint.autoConfigureConnectedAnchor = false;
                 CurrentAnchorPoint = hit.point;
+                
+                if (hit.point.y > Player.local.head.transform.position.y)
+                {
+                    AlreadyAboveWhenSwinging = true;
+                }
+                
                 MainJoint.connectedAnchor = WorldAnchorPoint;
 
                 MainJoint.maxDistance =
@@ -236,9 +332,46 @@ namespace Spider_Man.Webshooter.Gadgets
             Destroy(LineRenderer.gameObject);
             Destroy(HandleRenderer.gameObject);
             Destroy(SwingingHandle.gameObject);
+            if(anchorObj) Destroy(anchorObj);
+            if (hitCreature)
+            {
+                Destroy(jnt);
+                hitCreature = null;
+            }
+            if (hitItem)
+            {
+                Destroy(jnt);
+                hitItem = null;
+            }
             AlreadyAboveWhenSwinging = false;
         }
-        
+
+        void DrawWebAfter(float velocity)
+        {
+            Vector3 basePoint = CurrentWebPosition; // the fixed anchor (point B)
+            Vector3 forward = SwingingHandle.flyDirRef.transform.forward; // or some stable forward direction
+            Vector3 right = SwingingHandle.flyDirRef.transform.right;
+            Vector3 up = SwingingHandle.flyDirRef.transform.up;
+
+            for (int i = 0; i < ModOptions.quality + 1; i++)
+            {
+                float delta = i / (float)ModOptions.quality;
+
+                // Stay in local "web" space around B
+                float wave = Mathf.Sin(Time.time * velocity + delta * Mathf.PI * ModOptions.waveCount);
+                float amplitude = Mathf.Lerp(ModOptions.waveHeight, ModOptions.waveHeight * 2f, delta) * Spring.Value;
+
+                Vector3 offset = up * amplitude * wave * AffectCurve.Evaluate(delta);
+
+                // optional: add some small rotation to the wobble
+                float rotationAngle = delta * ModOptions.rotation;
+                Quaternion rotation = Quaternion.AngleAxis(rotationAngle, forward);
+                offset = rotation * offset;
+
+                // anchor around B instead of between A→B
+                LineRenderer.SetPosition(i, basePoint + offset);
+            }
+        }
         void DrawWeb()
         {
             if (LineRenderer.positionCount == 0)
@@ -254,8 +387,15 @@ namespace Spider_Man.Webshooter.Gadgets
             var grapplePoint = WorldAnchorPoint;
             var grappleStartPoint = SwingingHandle.flyDirRef.transform.position;
             var up = Quaternion.LookRotation((grapplePoint - grappleStartPoint).normalized) * Vector3.up;
-            CurrentWebPosition = Vector3.Lerp(CurrentWebPosition, grapplePoint, Time.deltaTime * 12f);
-        
+            if (Spring.Value > 0.1f)
+            {
+                CurrentWebPosition = Vector3.Lerp(CurrentWebPosition, grapplePoint, Time.deltaTime * 12f);
+            }
+            else
+            {
+                CurrentWebPosition = grapplePoint;
+            }
+
             for (int i = 0; i < ModOptions.quality + 1; i++)
             {
                 var delta = i / (float) ModOptions.quality;
@@ -266,41 +406,6 @@ namespace Spider_Man.Webshooter.Gadgets
                 offset = Vector3.Lerp(offset, rotation * offset, 1f); 
 
                 LineRenderer.SetPosition(i, Vector3.Lerp(grappleStartPoint, CurrentWebPosition, delta) + offset);
-            }
-
-        }
-        private void LateUpdate()
-        {
-            if (IsSwinging)
-            {
-                DrawWeb();
-                if (HandleRenderer)
-                {
-                    HandleRenderer.SetPosition(0, SwingingHandle.flyDirRef.transform.position + (-SwingingHandle.flyDirRef.transform.forward * 0.0706314f));
-                    HandleRenderer.SetPosition(1, SwingingHandle.flyDirRef.transform.position);
-                }
-            }
-            else
-            {
-                if (LineRenderer)
-                {
-                    Spring.Reset();
-                    if (LineRenderer.positionCount > 0)
-                    {
-                        LineRenderer.positionCount = 0;
-                    }
-                }
-            }
-        }
-        private void FixedUpdate()
-        {
-            if (MainJoint && WebConnectedToRb)
-            {
-                if (webHitSpot.collider)
-                {
-                    WorldAnchorPoint = webHitSpot.collider.transform.TransformPoint(CurrentAnchorPoint);
-                    MainJoint.connectedAnchor = WorldAnchorPoint;
-                }
             }
         }
         
@@ -376,32 +481,117 @@ namespace Spider_Man.Webshooter.Gadgets
         {
             if (IsSwinging)
             {
+
                 currentVelocity = Hand.Velocity();
-                if(AllowIntersections()) CheckForWeblineIntersections();
+
+                if (AllowIntersections()) CheckForWeblineIntersections();
                 if (ReelIn())
                 {
-                    if (MainJoint && MainJoint.maxDistance > MainJoint.minDistance) MainJoint.maxDistance -= ModOptions.reelInPower * Time.deltaTime;
+                    if (MainJoint && MainJoint.maxDistance > MainJoint.minDistance)
+                        MainJoint.maxDistance -= ModOptions.reelInPower * Time.deltaTime;
+                    else if(jnt && jnt.maxDistance > jnt.minDistance)
+                        jnt.maxDistance -= ModOptions.reelInPower * Time.deltaTime;
                 }
+
                 if (ReelOut())
                 {
-                    if (MainJoint && MainJoint.maxDistance >= MainJoint.minDistance) MainJoint.maxDistance += ModOptions.reelOutPower * Time.deltaTime;
+                    if (MainJoint && MainJoint.maxDistance >= MainJoint.minDistance)
+                        MainJoint.maxDistance += ModOptions.reelOutPower / 2f * Time.deltaTime;
+                    else if(jnt && jnt.maxDistance >= jnt.minDistance)
+                        jnt.maxDistance += ModOptions.reelInPower / 2f * Time.deltaTime;
                 }
-                bool isAccelerating = currentVelocity.magnitude > previousVelocity.magnitude + 0.14f;
+
+                bool isAccelerating = currentVelocity.magnitude > previousVelocity.magnitude;
                 var targetDirection = SwingingHandle.transform.position - webHitSpot.point;
-                
+
                 if (isAccelerating)
                 {
-                    // Check if velocity direction aligns with target direction
-                    float alignment = Vector3.Dot(currentVelocity.normalized, -targetDirection.normalized);
-                    if (alignment < -0.65f)
+                    bool isAcceleratingStagger = currentVelocity.magnitude > previousVelocity.magnitude + 0.5f;
+                    bool isAcceleratingCreature = currentVelocity.magnitude > previousVelocity.magnitude + 0.5f;
+                    if (AttachedToCreature)
                     {
-                        Hand.creature.AddForce(-targetDirection.normalized * ModOptions.webZipPower, ForceMode.Impulse);
+                        if(isAcceleratingStagger) hitCreature.ForceStagger(currentVelocity.normalized, BrainModuleHitReaction.PushBehaviour.Effect.StaggerMedium);
+                        if (isAcceleratingCreature)
+                        {
+                            hitCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                            hitCreature.AddForce(
+                                currentVelocity.normalized * 30f *
+                                Mathf.Clamp(hitCreature.currentLocomotion.velocity.magnitude, 1f, Single.MaxValue),
+                                ForceMode.Impulse);
+                        }
+                    }
+                    else if (AttachedToItem)
+                    {
+                        if (isAcceleratingCreature)
+                        {
+                            if(hitItem.mainHandler != null) hitItem.mainHandler.UnGrab(false);
+                            hitItem.AddForce(currentVelocity.normalized * 1f * Mathf.Clamp(hitItem.physicBody.rigidBody.velocity.magnitude, 1, 3f), ForceMode.Impulse);
+                        }
+                    }
+                    else if(currentVelocity.magnitude > previousVelocity.magnitude + 0.3f)
+                    {
+                        // Check if velocity direction aligns with target direction
+                        float alignment = Vector3.Dot(currentVelocity.normalized, -targetDirection.normalized);
+                        if (alignment < -0.65f)
+                        {
+                            Hand.creature.AddForce(-targetDirection.normalized * ModOptions.webZipPower,
+                                ForceMode.Impulse);
+                        }
                     }
                 }
+
+                if (AttachedToCreature)
+                {
+                    if (anchorObj)
+                    {
+                        anchorObj.transform.position = SwingingHandle.flyDirRef.transform.position;
+                    }
+                    WorldAnchorPoint = hitCreature.ragdoll.targetPart.transform.TransformPoint(CurrentAnchorPoint);
+                    var distance = Vector3.Distance(SwingingHandle.flyDirRef.transform.position, WorldAnchorPoint);
+                    if (distance > jnt.maxDistance)
+                    {
+                        hitCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                    }
+                }
+                else if (AttachedToItem)
+                {
+                    if (anchorObj)
+                    {
+                        anchorObj.transform.position = SwingingHandle.flyDirRef.transform.position;
+                    }
+                    WorldAnchorPoint = hitItem.gameObject.transform.TransformPoint(CurrentAnchorPoint);
+                }
+                else if (MainJoint && WebConnectedToRb)
+                {
+                    if (webHitSpot.collider)
+                    {
+                        WorldAnchorPoint = webHitSpot.collider.transform.TransformPoint(CurrentAnchorPoint);
+                        MainJoint.connectedAnchor = WorldAnchorPoint;
+                    }
+                }
+                
+                DrawWeb();
+                if (HandleRenderer)
+                {
+                    HandleRenderer.SetPosition(0,
+                        SwingingHandle.flyDirRef.transform.position +
+                        (-SwingingHandle.flyDirRef.transform.forward * 0.0706314f));
+                    HandleRenderer.SetPosition(1, SwingingHandle.flyDirRef.transform.position);
+                }
+
                 previousVelocity = currentVelocity;
             }
             else
             {
+                if (LineRenderer)
+                {
+                    Spring.Reset();
+                    if (LineRenderer.positionCount > 0)
+                    {
+                        LineRenderer.positionCount = 0;
+                    }
+                }
+                
                 if (Hand && Hand.playerHand.isFist && ItemAttached)
                 {
                     if(HandIsPoser(Hand.poser.targetHandPoseData, HandPoseData)) Hand.poser.ResetTargetPose();

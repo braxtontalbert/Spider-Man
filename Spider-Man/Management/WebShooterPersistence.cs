@@ -116,7 +116,6 @@ namespace Spider_Man.Management
                 saves = value;
             });
 
-            Debug.Log(saves);
             foreach (var save in saves)
             {
                 if (save.id.Equals(Player.characterData.ID))

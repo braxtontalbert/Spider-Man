@@ -13,10 +13,10 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
             if (!stuck)
             {
                 stuck = true;
-                this.gameObject.GetComponent<Item>().physicBody.rigidBody.isKinematic = true;
+                //this.gameObject.GetComponent<Item>().physicBody.rigidBody.isKinematic = true;
                 Item.OnItemDespawn += item => { Destroy(this);};
                 var spawnPoint = other.GetContact(0).point + (-other.GetContact(0).normal * 0.2f);
-                Catalog.InstantiateAsync("webNet" as object, spawnPoint,
+                /*Catalog.InstantiateAsync("webNet" as object, spawnPoint,
                     this.gameObject.transform.rotation, null,
                     callback =>
                     {
@@ -187,7 +187,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
                         }
 
                         center.gameObject.AddComponent<WebConnector>().Setup(nodes, other.GetContact(0).normal);
-                    }, "WebCreatureHandler");
+                    }, "WebCreatureHandler");*/
             }
         }
     }

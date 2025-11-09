@@ -54,6 +54,7 @@ namespace Spider_Man.Management
             base.ScriptUnload();
             EventManager.onCreatureDespawn -= CreatureDespawn;
             Player.local.locomotion.OnGroundEvent -= OnLand;
+            Player.local.locomotion.OnJumpEvent -= OnJump;
         }
 
         private void CreatureDespawn(Creature creature1, EventTime eventtime)
@@ -119,6 +120,7 @@ namespace Spider_Man.Management
         private void Possess(Creature obj)
         {
             Player.local.locomotion.OnGroundEvent += OnLand;
+            Player.local.locomotion.OnJumpEvent += OnJump;
             if (!left)
             {
                 var handLeft = obj.handLeft;
@@ -162,6 +164,11 @@ namespace Spider_Man.Management
             {
                 left.otherHandMono = right;
             }
+        }
+
+        private void OnJump()
+        {
+            Player.local.creature.AddForce(Vector3.up * 100f * ModOptions.jumpPower, ForceMode.Impulse);
         }
 
         private bool alignDive;
@@ -230,124 +237,31 @@ namespace Spider_Man.Management
                 if (Player.local.autoAlign) Player.local.autoAlign = false;
                 if (!Player.local.locomotion.isGrounded)
                 {
-                    
-                    if (left.swing.IsSwinging && right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging))
+                    if (left.swing.IsSwinging && right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging) && (!left.swing.AttachedToCreature || !right.swing.AttachedToCreature))
                     {
-                        targetDirection = (right.swing.WorldAnchorPoint - left.swing.WorldAnchorPoint).normalized;
-                        float distanceHalved = Vector3.Distance(right.swing.WorldAnchorPoint, left.swing.WorldAnchorPoint) / 2f;
-                        var position = left.swing.WorldAnchorPoint + (direction * distanceHalved);
-                        targetDirection = (position - Player.currentCreature.ragdoll.headPart.transform.position)
+                        var centralPoint = (right.swing.WorldAnchorPoint + left.swing.WorldAnchorPoint) / 2f;
+                        targetDirection = (centralPoint - Player.currentCreature.ragdoll.headPart.transform.position)
                             .normalized;
                     }
-                    else if (left.swing.IsSwinging && !right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging))
+                    else if (left.swing.IsSwinging && !right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging) && (!left.swing.AttachedToCreature || !right.swing.AttachedToCreature))
                         targetDirection = (left.swing.WorldAnchorPoint - left.swing.SwingingHandle.transform.position).normalized;
                     else if (right.swing.IsSwinging && !left.swing.IsSwinging && 
-                             (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging))
+                             (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging) && (!left.swing.AttachedToCreature || !right.swing.AttachedToCreature))
                         targetDirection = (right.swing.WorldAnchorPoint - right.swing.SwingingHandle.transform.position).normalized;
-                    else if(allowWallRun)
-                    {
-                        targetDirection = alignDive ? Vector3.down : Vector3.up;
-                    }
                     else
                     {
-                        targetDirection = startWallRun ? targetDirection : Vector3.up;
-                    }
-                    if (Vector3.Dot(Player.local.transform.forward, targetDirection) < 0 && alignDive)
-                    {
-                        targetDirection = Vector3.Reflect(targetDirection, Player.local.transform.forward);
+                        targetDirection = Vector3.up;
                     }
                     
-                    if (!vectorSet)
-                    {
-                        direction = Vector3.Slerp(direction, targetDirection, ModOptions.alignmentSpeed * Time.deltaTime);
-                        Quaternion rotation = Quaternion.FromToRotation(Player.local.transform.up, direction);
-                        if (Quaternion.Angle(Player.local.transform.rotation,
-                                rotation * Player.local.transform.rotation) <
-                            0.1f) return;
-                        Player.local.transform.rotation = Quaternion.Slerp(Player.local.transform.rotation,
-                            rotation * Player.local.transform.rotation, speed * Time.deltaTime);
-                    }
+                    direction = Vector3.Slerp(direction, targetDirection, ModOptions.alignmentSpeed * Time.deltaTime);
+                    Quaternion rotation = Quaternion.FromToRotation(Player.local.transform.up, direction);
+                    if (Quaternion.Angle(Player.local.transform.rotation,
+                            rotation * Player.local.transform.rotation) <
+                        0.1f) return;
+                    Player.local.transform.rotation = Quaternion.Slerp(Player.local.transform.rotation,
+                        rotation * Player.local.transform.rotation, speed * Time.deltaTime);
                 }
             }
-
-            /*if (alignPlayerWhileClimbing && right && left)
-            {
-                if (right.swinging || left.swinging) return;
-                var playerClimbLeft = Player.currentCreature.handLeft.climb;
-                var playerClimbRight = Player.currentCreature.handRight.climb;
-                var leftCheck = (!playerClimbLeft.gripRagdollPart &&
-                                 !playerClimbLeft.gripItem);
-                var rightCheck = (!playerClimbRight.gripRagdollPart &&
-                                  !playerClimbRight.gripItem);
-                if (playerClimbLeft.isGripping)
-                {
-                    if (leftCheck)
-                    {
-                        if (playerClimbLeft.gripCollider)
-                        {
-                            var collider = playerClimbLeft.gripCollider;
-                            collider.gameObject.layer = playerClimbRight.ragdollHand.creature.data.groundMask;
-                            RaycastHit hit;
-                            if (Physics.Raycast(playerClimbLeft.ragdollHand.palmCollider.transform.position,
-                                    playerClimbLeft.ragdollHand.PalmDir, out hit, 2f, Physics.DefaultRaycastLayers,
-                                    QueryTriggerInteraction.Ignore) && !vectorSet)
-                            {
-                                var normal = hit.normal;
-                                smoothedNormal = Vector3.Slerp(previousNormal, normal, Time.deltaTime * 10f);
-                                float blendFactor = Mathf.Clamp01((Mathf.Abs(normal.y) - 0.3f) / 0.7f);
-                                Vector3 referenceVector = Vector3.ProjectOnPlane(playerClimbLeft.ragdollHand.transform.right, smoothedNormal).normalized;
-                                perpendicularVector = Vector3.Cross(smoothedNormal, referenceVector).normalized;
-                                previousNormal = smoothedNormal;
-                                vectorSet = true;
-                            }
-                        }
-                    }   
-                }
-                if(playerClimbRight.isGripping && !vectorSet)
-                {
-                    if (rightCheck)
-                    {
-                        if (playerClimbRight.gripCollider)
-                        {
-                            var collider = playerClimbRight.gripCollider;
-                            collider.gameObject.layer = playerClimbRight.ragdollHand.creature.data.groundMask;
-                            RaycastHit hit;
-                            if (Physics.Raycast(playerClimbRight.ragdollHand.palmCollider.transform.position,
-                                    playerClimbRight.ragdollHand.PalmDir, out hit, 2f, Physics.DefaultRaycastLayers,
-                                    QueryTriggerInteraction.Ignore) && !vectorSet)
-                            {
-                                var normal = hit.normal;
-                                smoothedNormal = Vector3.Slerp(previousNormal, normal, Time.deltaTime * 10f);
-                                float blendFactor = Mathf.Clamp01((Mathf.Abs(normal.y) - 0.3f) / 0.7f);
-                                Vector3 referenceVector = Vector3.ProjectOnPlane(playerClimbRight.ragdollHand.transform.right, smoothedNormal).normalized;
-                                perpendicularVector = Vector3.Cross(smoothedNormal, referenceVector).normalized;
-                                previousNormal = smoothedNormal;
-                                vectorSet = true;
-                            }
-                        }
-                    }
-                }
-
-                if (!playerClimbLeft.isGripping && !playerClimbRight.isGripping)
-                {
-                    vectorSet = false;
-                }
-
-                if (vectorSet)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(perpendicularVector, smoothedNormal);
-                    float angleDifference = Quaternion.Angle(Player.local.transform.rotation, targetRotation);
-
-                    if (angleDifference > 10f)
-                    {
-                        Player.local.transform.rotation = Quaternion.Slerp(
-                            Player.local.transform.rotation,
-                            targetRotation,
-                            speed * Time.deltaTime
-                        );
-                    }
-                }
-            }*/
         }
     }
 }

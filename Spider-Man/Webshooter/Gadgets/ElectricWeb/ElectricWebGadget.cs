@@ -2,9 +2,9 @@
 using ThunderRoad;
 using UnityEngine;
 
-namespace Spider_Man.Webshooter.Gadgets
+namespace Spider_Man.Webshooter.Gadgets.ElectricWeb
 {
-    public class ImpactWebGadget : MonoBehaviour, IGadget
+    public class ElectricWebGadget : MonoBehaviour, IGadget
     {
         public string Name { get; set; }
         private bool SpawningImpactWeb { get; set; }
@@ -19,7 +19,7 @@ namespace Spider_Man.Webshooter.Gadgets
         {
             if (Item == null && Hand == null)
             {
-                Name = "Impact Web";
+                Name = "Electric Web";
                 Item = item;
                 Hand = hand;
                 PressCount = 0;
@@ -46,9 +46,9 @@ namespace Spider_Man.Webshooter.Gadgets
             if (!SpawningImpactWeb && SpawnTimeReset)
             {
                 SpawnTimeReset = false;
-                StartCoroutine(ImpactWebTimer());
+                StartCoroutine(ElectricWebTimer());
                 SpawningImpactWeb = true;
-                Catalog.InstantiateAsync("impactWeb", Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation, null, callback =>
+                Catalog.InstantiateAsync("webBallElectric", Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation, null, callback =>
                 {
                     callback.transform.position = Item.flyDirRef.transform.position;
                     callback.transform.rotation = Item.flyDirRef.transform.rotation;
@@ -60,12 +60,12 @@ namespace Spider_Man.Webshooter.Gadgets
                     var transformFound = callback.gameObject.transform.Find("webballRounded");
                     var renderer = transformFound.GetComponentInChildren<MeshRenderer>();
                     renderer.enabled = false;
-                    webbBall.gameObject.AddComponent<ImpactWeb.ImpactWeb>().Setup(Item.flyDirRef.transform.position, transformFound, this.Item);
+                    webbBall.gameObject.AddComponent<ElectricWeb>().Setup(Item.flyDirRef.transform.position, transformFound, this.Item);
                     webbBall.physicBody.rigidBody.useGravity = false;
-                    webbBall.physicBody.rigidBody.AddForce(Item.flyDirRef.transform.forward * Mathf.Clamp(Hand.physicBody.velocity.magnitude, 95, 150f),
+                    webbBall.physicBody.rigidBody.AddForce(Item.flyDirRef.transform.forward * Mathf.Clamp(Hand.physicBody.velocity.magnitude, 40f, 75f),
                         ForceMode.Impulse);
                         
-                    Catalog.InstantiateAsync("WebBallSFX", Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation,
+                    Catalog.InstantiateAsync("webBallElectricSFX", Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation,
                         Item.gameObject.transform,
                         sfx =>
                         {
@@ -73,12 +73,12 @@ namespace Spider_Man.Webshooter.Gadgets
                             audio.pitch = Random.Range(0.9f, 1.1f);
                             audio.Play();
                             sfx.AddComponent<DestroyAudioAfterPlay>();
-                        }, "WebBallSFX");
+                        }, "WebBallElectricSFXHandler");
                     SpawningImpactWeb = false;
                 }, "ImpactWebHandler");
             }
         }
-        IEnumerator ImpactWebTimer()
+        IEnumerator ElectricWebTimer()
         {
             yield return new WaitForSeconds(2f);
             if (!ReloadSound)

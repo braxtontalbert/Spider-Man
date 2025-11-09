@@ -20,6 +20,7 @@ namespace Spider_Man.Management
         public static int reelInPower;
         public static int reelOutPower;
         public static int webZipPower;
+        public static int jumpPower;
 
         public static float alignmentSpeed;
 
@@ -30,6 +31,7 @@ namespace Spider_Man.Management
         public static ModOptionFloat[] floatOption = new ModOptionFloat[101];
         public static ModOptionFloat[] strengthOption = new ModOptionFloat[1601];
         public static ModOptionFloat[] waveOption = new ModOptionFloat[30];
+        public static ModOptionInt[] jumpPowerOption = new ModOptionInt[11];
         public static ModOptionBool[] booleanOptions = new ModOptionBool[2]
         {
             new ModOptionBool("Disabled", false),
@@ -72,6 +74,10 @@ namespace Spider_Man.Management
             for(int i = 0; i < strengthOption.Length; i++)
             {
                 strengthOption[i] = new ModOptionFloat(i.ToString(), i);
+            }
+            for(int i = 0; i < jumpPowerOption.Length; i++)
+            {
+                jumpPowerOption[i] = new ModOptionInt(i.ToString(), i);
             }
         }
 
@@ -209,6 +215,15 @@ namespace Spider_Man.Management
         private static void WebZipPowerOption(int value = 200)
         {
             webZipPower = value;
+        }
+        [ModOptionSlider]
+        [ModOptionCategory("Spider-Man", 12)]
+        [ModOption("Jump Power", "Modifies how strong your jump is.", nameof(jumpPowerOption), defaultValueIndex = 1)]
+        [ModOptionSave]
+        [ModOptionSaveValue(true)]
+        private static void JumpPowerOption(int value = 1)
+        {
+            jumpPower = value;
         }
     }
 }

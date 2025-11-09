@@ -8,7 +8,6 @@ namespace Spider_Man
     {
         private void OnParticleCollision(GameObject other)
         {
-            Debug.Log("Particle Collision occurred");
             if (other.GetComponentInParent<Creature>() is Creature creature && !creature.isPlayer)
             {
                 if (creature.gameObject.GetComponent<CreatureWebTracker>() is CreatureWebTracker tracker)

@@ -40,6 +40,7 @@ namespace Spider_Man.Management
                 if(rightJoint) Destroy(rightJoint);
                 if(leftJoint) Destroy(leftJoint);
                 ResetCreatureMaterial();
+                allowContactEvent = false;
                 Destroy(this);
             }
         }
@@ -421,14 +422,36 @@ namespace Spider_Man.Management
                     materialChanged = true;
                 }
             }
+            else
+            {
+                ResetCreatureMaterial();
+                if (creature && creature.renderers != null)
+                {
+                    foreach (var renderer in creature.renderers)
+                    {
+                        Material webMatSkin = ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
+                        Material webMatElevated =
+                            ManageAutoAlignment.local.materiaLWebElevated.DeepCopyByExpressionTree();
+                        originalCreatureMaterial.Enqueue(renderer.renderer.materials);
+                        Material[] myMaterials = renderer.renderer.materials;
+                        Material[] matDefGood = new Material[myMaterials.Length + 2];
+
+                        matDefGood[0] = myMaterials[0];
+                        matDefGood[1] = webMatSkin;
+                        matDefGood[2] = webMatElevated;
+
+                        renderer.renderer.materials = matDefGood;
+                    }
+
+                    materialChanged = true;
+                }
+                
+            }
 
             if (creature && creature.renderers != null)
             {
                 foreach (var renderer in creature.renderers)
                 {
-                    if (renderer?.meshPart?.skinnedMeshRenderer?.sharedMesh?.bounds != null)
-                        Debug.Log(
-                            $"SMR Bounds Size for renderer ${renderer}: ${renderer?.meshPart?.skinnedMeshRenderer?.sharedMesh?.bounds.size}");
                     foreach (var mat in renderer.renderer.materials)
                     {
                         var multiplier = 1f;
@@ -495,9 +518,6 @@ namespace Spider_Man.Management
                     {
                         foreach (var renderer in creature.renderers)
                         {
-                            if (renderer.meshPart?.skinnedMeshRenderer?.sharedMesh?.bounds != null)
-                                Debug.Log(
-                                    $"SMR Bounds Size for renderer ${renderer}: ${renderer?.meshPart?.skinnedMeshRenderer?.sharedMesh?.bounds.size}");
                             Material webMatSkin = ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
                             Material webMatElevated =
                                 ManageAutoAlignment.local.materiaLWebElevated.DeepCopyByExpressionTree();

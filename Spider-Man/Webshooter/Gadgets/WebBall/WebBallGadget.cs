@@ -47,7 +47,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
                     callback.transform.position = Item.flyDirRef.transform.position;
                     callback.transform.rotation = Item.flyDirRef.transform.rotation;
                     var webbBall = callback.GetComponent<Item>();
-
+                    webbBall.Throw();
                     webbBall.IgnoreItemCollision(Item);
                     webbBall.IgnoreRagdollCollision(Hand.ragdoll);
                     var transformFound = callback.gameObject.transform.Find("webballRounded");
