@@ -42,9 +42,13 @@ namespace Spider_Man.Webshooter.Gadgets
         private Vector3 CurrentAnchorPoint { get; set; }
         public Vector3 WorldAnchorPoint { get; set; }
         private const string ThwipHandleString = "ThwipHandle";
-        
         private Spring Spring { get; set; }
         private AnimationCurve AffectCurve { get; set; }
+        public bool DisallowItemGrab { get; set; }
+        public bool AlreadyAboveWhenSwinging { get; set; }
+        
+        private GameObject anchorObj;
+        private SpringJoint jnt;
 
         public void Activate(Item item, RagdollHand hand, ref bool itemAttached)
         {
@@ -61,16 +65,6 @@ namespace Spider_Man.Webshooter.Gadgets
             StartSwingCheck();
         }
         
-        void SetupSpring()
-        {
-            AffectCurve = new AnimationCurve();
-            AffectCurve.AddKey(0, 0);
-            AffectCurve.AddKey(0.3f, 0.7f);
-            AffectCurve.AddKey(1f, 0);
-            Spring = new Spring();
-            Spring.SetTarget(0);
-        }
-
         void InstantiateSFX()
         {
             if (!SwingSFX)
@@ -83,7 +77,6 @@ namespace Spider_Man.Webshooter.Gadgets
                     }, "SwingSFX");
             }
         }
-
         public IEnumerator WaitWindow(IGadget currentGadget)
         {
             currentGadget.DisallowItemGrab = true;
@@ -92,10 +85,16 @@ namespace Spider_Man.Webshooter.Gadgets
             PressCount = 0;
             Coroutine = null;
         }
-
-        public bool DisallowItemGrab { get; set; }
-
-        public bool AlreadyAboveWhenSwinging { get; set; }
+        
+        void SetupSpring()
+        {
+            AffectCurve = new AnimationCurve();
+            AffectCurve.AddKey(0, 0);
+            AffectCurve.AddKey(0.3f, 0.7f);
+            AffectCurve.AddKey(1f, 0);
+            Spring = new Spring();
+            Spring.SetTarget(0);
+        }
         
         void StartSwingCheck()
         {
@@ -181,9 +180,7 @@ namespace Spider_Man.Webshooter.Gadgets
         {
             BreakSwing();
         }
-
-        private GameObject anchorObj;
-        private SpringJoint jnt;
+        
         bool SetSpringJoint(RaycastHit hit)
         {
             if (hit.collider)
@@ -205,18 +202,15 @@ namespace Spider_Man.Webshooter.Gadgets
                     anchorObj = new GameObject("WebAnchor");
                     anchorObj.transform.position = SwingingHandle.flyDirRef.transform.position;
                     Rigidbody anchorRb = anchorObj.AddComponent<Rigidbody>();
-                    anchorRb.isKinematic = true;   // this makes it an immovable anchor
-
-// Add the joint on the creature
+                    anchorRb.isKinematic = true; 
+                    
                     jnt = hitItem.gameObject.AddComponent<SpringJoint>();
                     jnt.autoConfigureConnectedAnchor = false;
-
-// Connect to the static anchor instead of the player
+                    
                     jnt.connectedBody = anchorRb;
                     jnt.anchor = hitItem.gameObject.transform.InverseTransformPoint(hit.point);
                     jnt.connectedAnchor = Vector3.zero;
-
-// Spring parameters
+                    
                     float dist = Vector3.Distance(
                         hitItem.gameObject.transform.position,
                         anchorObj.transform.position
@@ -252,18 +246,14 @@ namespace Spider_Man.Webshooter.Gadgets
                     anchorObj = new GameObject("WebAnchor");
                     anchorObj.transform.position = SwingingHandle.flyDirRef.transform.position;
                     Rigidbody anchorRb = anchorObj.AddComponent<Rigidbody>();
-                    anchorRb.isKinematic = true;   // this makes it an immovable anchor
-
-// Add the joint on the creature
+                    anchorRb.isKinematic = true;   
+                    
                     jnt = hitCreature.ragdoll.targetPart.gameObject.AddComponent<SpringJoint>();
                     jnt.autoConfigureConnectedAnchor = false;
-
-// Connect to the static anchor instead of the player
                     jnt.connectedBody = anchorRb;
                     jnt.anchor = hitCreature.ragdoll.targetPart.transform.InverseTransformPoint(hit.point);
                     jnt.connectedAnchor = Vector3.zero;
-
-// Spring parameters
+                    
                     float dist = Vector3.Distance(
                         hitCreature.ragdoll.targetPart.transform.position,
                         anchorObj.transform.position
@@ -484,11 +474,16 @@ namespace Spider_Man.Webshooter.Gadgets
         Vector3 currentVelocity = Vector3.zero;
         private void Update()
         {
+            //if swinging is active
             if (IsSwinging)
             {
+                
+                //current frame velocity
                 currentVelocity = Hand.Velocity();
 
+                //Check for inersections and modify the web line accordingly.
                 if (AllowIntersections()) CheckForWeblineIntersections();
+                //Pull towards connected point on main joint or on target gameobject towards you
                 if (ReelIn())
                 {
                     if (MainJoint && MainJoint.maxDistance > MainJoint.minDistance)
@@ -497,6 +492,7 @@ namespace Spider_Man.Webshooter.Gadgets
                         jnt.maxDistance -= ModOptions.reelInPower * Time.deltaTime;
                 }
 
+                //Release tension away from connected point on main joint or on target gameobject
                 if (ReelOut())
                 {
                     if (MainJoint && MainJoint.maxDistance >= MainJoint.minDistance)
@@ -505,17 +501,18 @@ namespace Spider_Man.Webshooter.Gadgets
                         jnt.maxDistance += ModOptions.reelInPower / 2f * Time.deltaTime;
                 }
 
+                //validate acceleration is greater than last frame
                 bool isAccelerating = currentVelocity.magnitude > previousVelocity.magnitude;
+                
+                //direction of webline
                 var targetDirection = SwingingHandle.transform.position - webHitSpot.point;
 
                 if (isAccelerating)
                 {
-                    bool isAcceleratingStagger = currentVelocity.magnitude > previousVelocity.magnitude + 0.5f;
                     bool isAcceleratingCreature = currentVelocity.magnitude > previousVelocity.magnitude + 0.5f;
-                    if (AttachedToCreature)
+                    if (isAcceleratingCreature)
                     {
-                        if(isAcceleratingStagger) hitCreature.ForceStagger(currentVelocity.normalized, BrainModuleHitReaction.PushBehaviour.Effect.StaggerMedium);
-                        if (isAcceleratingCreature)
+                        if (AttachedToCreature && hitCreature != null)
                         {
                             hitCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
                             hitCreature.AddForce(
@@ -523,23 +520,21 @@ namespace Spider_Man.Webshooter.Gadgets
                                 Mathf.Clamp(hitCreature.currentLocomotion.velocity.magnitude, 1f, Single.MaxValue),
                                 ForceMode.Impulse);
                         }
-                    }
-                    else if (AttachedToItem)
-                    {
-                        if (isAcceleratingCreature)
+                        else if (AttachedToItem && hitItem != null)
                         {
-                            if(hitItem.mainHandler != null) hitItem.mainHandler.UnGrab(false);
-                            hitItem.AddForce(currentVelocity.normalized * 2f * hitItem.totalCombinedMass, ForceMode.Impulse);
-                        }
-                    }
-                    else if(currentVelocity.magnitude > previousVelocity.magnitude + 0.3f)
-                    {
-                        // Check if velocity direction aligns with target direction
-                        float alignment = Vector3.Dot(currentVelocity.normalized, -targetDirection.normalized);
-                        if (alignment < -0.65f)
-                        {
-                            Hand.creature.AddForce(-targetDirection.normalized * ModOptions.webZipPower,
+                            if (hitItem.mainHandler != null) hitItem.mainHandler.UnGrab(false);
+                            hitItem.AddForce(currentVelocity.normalized * 2f * hitItem.totalCombinedMass,
                                 ForceMode.Impulse);
+                        }
+                        else if (currentVelocity.magnitude > previousVelocity.magnitude + 0.3f)
+                        {
+                            // Check if velocity direction aligns with target direction
+                            float alignment = Vector3.Dot(currentVelocity.normalized, -targetDirection.normalized);
+                            if (alignment < -0.65f)
+                            {
+                                Hand.creature.AddForce(-targetDirection.normalized * ModOptions.webZipPower,
+                                    ForceMode.Impulse);
+                            }
                         }
                     }
                 }
