@@ -8,7 +8,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebNet
     {
         public List<GameObject> connectedNodes;
         public Material lineMaterial;
-        public float lineWidth = 0.2f;
+        public float lineWidth = 0.15f;
         private Vector3 normal;
 
         private readonly List<GameObject> lineObjects = new List<GameObject>();
@@ -25,7 +25,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebNet
             if (!this.gameObject.name.Equals("Center")) return;
             foreach (var node in connectedNodes)
             {
-                node.GetComponent<Rigidbody>().AddForce(normal * 50f, ForceMode.Impulse);
+                node.GetComponent<Rigidbody>().AddForce(normal * 90f, ForceMode.Impulse);
             }
         }
 
@@ -36,7 +36,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebNet
             {
                 node.AddComponent<CollisionPerNode>();
             }
-            this.lineMaterial = WebShooterPersistence.local.webMaterial;
+            this.lineMaterial = WebShooterPersistence.local.GetWebMaterial(ModOptions.webNetType);
             this.normal = normal;
         }
 

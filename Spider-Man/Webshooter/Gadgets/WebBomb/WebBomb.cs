@@ -28,6 +28,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebBomb
             }
             this.gameObject.transform.parent = other.gameObject.transform;
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            this.gameObject.GetComponentInChildren<Collider>().enabled = false;
             vfx = this.gameObject.GetComponentInChildren<VisualEffect>();
             StartCoroutine(BombTimer());
         }

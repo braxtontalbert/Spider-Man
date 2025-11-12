@@ -15,7 +15,7 @@ namespace Spider_Man.Management
         private float decayWebbingRate;
         private Creature creature;
         private bool allowContactEvent;
-        private bool stuckToWall;
+        public bool stuckToWall;
         private bool materialChanged;
         private bool slowedCreature;
         public Queue<Material[]> originalCreatureMaterial = new Queue<Material[]>();
@@ -52,7 +52,6 @@ namespace Spider_Man.Management
 
         private void CollisionEvent(CollisionInstance collisioninstance)
         {
-
             if (!collisioninstance.targetCollider.gameObject.GetComponentInParent<Item>() &&
                 !collisioninstance.targetCollider.gameObject.GetComponentInParent<Creature>() && allowContactEvent &&
                 !stuckToWall)
@@ -67,7 +66,11 @@ namespace Spider_Man.Management
 
                 creature.locomotion.isGrounded = false;
                 stuckToWall = true;
-                var spawnPoint = collisioninstance.contactPoint + (-collisioninstance.contactNormal * 0.6f);
+                var contactNormal = collisioninstance.contactNormal;
+                var direction = collisioninstance.impactVelocity.normalized;
+                var dotProduct = Vector3.Dot(collisioninstance.contactNormal, direction);
+                if (dotProduct > 0.95f) contactNormal = -contactNormal;
+                var spawnPoint = collisioninstance.contactPoint + (-contactNormal * 1f);
                 Catalog.InstantiateAsync("webNet", spawnPoint,
                     creature.ragdoll.targetPart.transform.rotation, null,
                     callback =>

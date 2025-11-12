@@ -15,6 +15,7 @@ namespace Spider_Man.Management
     {
         public static WebShooterPersistence local;
         public Material webMaterial;
+        public Material webMaterial2;
         public string characterID;
         public Dictionary<String, bool> sideData;
         private bool waitingForData = false;
@@ -33,6 +34,14 @@ namespace Spider_Man.Management
                 {
                     webMaterial = callback;
                 }, "Webmaterial");
+            }
+
+            if (webMaterial2 == null)
+            {
+                Catalog.LoadAssetAsync<Material>("Webtexture2", callback =>
+                {
+                    webMaterial2 = callback;
+                }, "Webmaterial2Handler");
             }
             Player.onSpawn += player =>
             {
@@ -58,6 +67,19 @@ namespace Spider_Man.Management
                     
             };
                 
+        }
+        
+        public Material GetWebMaterial(String materialName)
+        {
+            switch (materialName)
+            {
+                case "Classic":
+                    return webMaterial;
+                case "Realistic":
+                    return webMaterial2;
+                default:
+                    return null;
+            }
         }
         
         private void LevelUnloadEvent(LevelData leveldata, LevelData.Mode mode, EventTime eventtime)

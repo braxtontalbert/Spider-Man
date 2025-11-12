@@ -86,7 +86,7 @@ namespace Spider_Man.Webshooter
             this.hand.caster.AllowSpellWheel(item.gameObject.GetComponent<SnapCheck>());
             item.GetMainHandle(hand.side).SetTouchPersistent(true);
             this.hand.playerHand.controlHand.OnButtonPressEvent -= ButtonPressEvent;
-            this.hand.caster.telekinesis.Enable(this);
+            this.hand.caster.telekinesis.Enable(this.item);
             item.OnGrabEvent -= OnGrab;
             item.DisallowDespawn = false;
             if (!otherHandMono.itemAttached)
@@ -157,9 +157,9 @@ namespace Spider_Man.Webshooter
             {
                 if (hand.Equals(this.hand.otherHand))
                 {
-                    if (otherHandMono.itemAttached && this.item)
+                    if (otherHandMono.itemAttached && otherHandMono.item)
                     {
-                        item.GetMainHandle(hand.side).SetTouchPersistent(true);
+                        otherHandMono.item.GetMainHandle(hand.side).SetTouchPersistent(true);
                         if (otherHandMono)
                         {
                             otherHandMono.activated = false;
@@ -175,9 +175,9 @@ namespace Spider_Man.Webshooter
             {
                 if (hand.Equals(this.hand.otherHand))
                 {
-                    if (otherHandMono.itemAttached && this.item)
+                    if (otherHandMono.itemAttached && otherHandMono.item)
                     {
-                        item.GetMainHandle(hand.otherHand.side).SetTouchPersistent(false);
+                        otherHandMono.item.GetMainHandle(hand.otherHand.side).SetTouchPersistent(false);
                         otherHandMono.activated = true;
                     }
                 }

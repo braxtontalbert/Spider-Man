@@ -1,4 +1,5 @@
-﻿using ThunderRoad;
+﻿using System;
+using ThunderRoad;
 
 namespace Spider_Man.Management
 {
@@ -36,6 +37,16 @@ namespace Spider_Man.Management
         {
             new ModOptionBool("Disabled", false),
             new ModOptionBool("Enabled",true)
+        };
+        public static ModOptionString[] weblineOptions = new ModOptionString[2]
+        {
+            new ModOptionString("Classic", "Classic"),
+            new ModOptionString("Realistic", "Realistic")
+        };
+        public static ModOptionString[] webNetOptions = new ModOptionString[2]
+        {
+            new ModOptionString("Classic", "Classic"),
+            new ModOptionString("Realistic", "Realistic")
         };
         public static ModOptionFloat[] alignmentSpeedOption = new ModOptionFloat[10 * 10];
 
@@ -80,11 +91,6 @@ namespace Spider_Man.Management
                 jumpPowerOption[i] = new ModOptionInt(i.ToString(), i);
             }
         }
-
-        /*[ModOption("Allow Climbing", "Enables/Disables climbing manually up the web line", category = "Spider-Man")]
-        [ModOptionSave]
-        [ModOptionSaveValue(true)]*/
-        public static bool allowClimbing = false;
         
         [ModOption("Align Player While Swinging", "Enables/Disables aligning the player rotation with the swing arc", category = "Spider-Man")]
         [ModOptionSave]
@@ -101,6 +107,20 @@ namespace Spider_Man.Management
         [ModOptionSave]
         [ModOptionSaveValue(true)]
         public static bool allowWebZipping;
+
+        [ModOptionArrows]
+        [ModOptionCategory("Spider-Man", 13)]
+        [ModOption("Web Line Type", "Changes the type of webline used when swinging.", nameof(weblineOptions), defaultValueIndex = 0)]
+        [ModOptionSave]
+        [ModOptionSaveValue(true)]
+        public static string webLineType = "Classic";
+        
+        [ModOptionArrows]
+        [ModOptionCategory("Spider-Man", 14)]
+        [ModOption("Web Net Type", "Changes the type of webnet used when attachign to enemies.", nameof(weblineOptions), defaultValueIndex = 0)]
+        [ModOptionSave]
+        [ModOptionSaveValue(true)]
+        public static string webNetType = "Classic";
         
         /*[ModOption("Auto Reset Align", "Enables/Disables auto adjustment to the normal alignment when Align Player While Swinging is enabled", category = "Spider-Man")]
         [ModOptionSave]

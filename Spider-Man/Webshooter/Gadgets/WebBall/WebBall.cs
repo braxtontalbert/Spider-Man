@@ -32,7 +32,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
             if (collision.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
                 var direction = -collision.relativeVelocity.normalized;
-                creature.ForceStagger(direction, BrainModuleHitReaction.PushBehaviour.Effect.StaggerFull);
+                if(!creature.isKilled) creature.ForceStagger(direction, BrainModuleHitReaction.PushBehaviour.Effect.StaggerFull);
                 if (creature.gameObject.GetComponent<CreatureWebTracker>() is CreatureWebTracker tracker)
                 {
                     tracker.hitNumber += 1;

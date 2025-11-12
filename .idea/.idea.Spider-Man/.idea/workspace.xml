@@ -6,6 +6,141 @@
   <component name="ChangeListManager">
     <list default="true" id="662157e0-cda4-4c01-8c5c-aff2c7e17fc0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/CreatureWebTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/CreatureWebTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/ManageAutoAlignment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ManageAutoAlignment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/ModOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ModOptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/WebShooterPersistence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/WebShooterPersistence.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/Swing/SwingGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/Swing/SwingGadget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBall.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBomb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBomb.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebNet/WebConnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebNet/WebConnector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/SnapCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/SnapCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/WSRagdollHand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/WSRagdollHand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/AssetSorceryRuntime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/AssetSorceryRuntime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/AssetSorceryRuntime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/AssetSorceryRuntime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/BetterStreamingAssets.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/BetterStreamingAssets.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/BetterStreamingAssets.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/BetterStreamingAssets.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Bhaptics.SDK2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Bhaptics.SDK2.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Bhaptics.SDK2.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Bhaptics.SDK2.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Caustics.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Caustics.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Caustics.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Caustics.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Foliage.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Foliage.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Foliage.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Foliage.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/HybridCLR.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/HybridCLR.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/HybridCLR.Runtime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/HybridCLR.Runtime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/IngameDebugConsole.Runtime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/LIV.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/LIV.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/LIV.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/LIV.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/MirrorsAndReflections.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/MirrorsAndReflections.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/MirrorsAndReflections.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/MirrorsAndReflections.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/NavMeshComponents.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/NavMeshComponents.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/NavMeshComponents.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/NavMeshComponents.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Newtonsoft.Json.UnityConverters.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Newtonsoft.Json.UnityConverters.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Newtonsoft.Json.UnityConverters.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Newtonsoft.Json.UnityConverters.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.Platform.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.Platform.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.Platform.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.Platform.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.VR.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.VR.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.VR.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Oculus.VR.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/PICO.Platform.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/PICO.Platform.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/PICO.Platform.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/PICO.Platform.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/PerfectCulling.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/PerfectCulling.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/PerfectCulling.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/PerfectCulling.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Collections.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Collections.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Collections.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Collections.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.Dismemberment.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.MeshUtilities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.MeshUtilities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.MeshUtilities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RainyReignGames.MeshUtilities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RaycastTexture.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RootMotion.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RootMotion.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/RootMotion.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/RootMotion.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ScreenSpaceDistanceField.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ScreenSpaceDistanceField.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ScreenSpaceDistanceField.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ScreenSpaceDistanceField.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ShadowoodSDK.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ShadowoodSDK.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ShadowoodSDK.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ShadowoodSDK.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Shorelines.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/SteamVR.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/SteamVR.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/SteamVR.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/SteamVR.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/TRVRKBSharedData.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/TRVRKBSharedData.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/TRVRKBSharedData.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/TRVRKBSharedData.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Manikin.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Manikin.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Manikin.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Manikin.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.MaterialInstance.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.MaterialInstance.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.MaterialInstance.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.MaterialInstance.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.PointCache.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.PointCache.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.PointCache.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.PointCache.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reflection.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reveal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reveal.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reveal.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.Reveal.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderRoad.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderSpline.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderSpline.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderSpline.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/ThunderSpline.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Tonemapping.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Tonemapping.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Tonemapping.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Tonemapping.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/TriInspector.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/TriInspector.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/TriInspector.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/TriInspector.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Addressables.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Addressables.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Addressables.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Addressables.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Animation.Rigging.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Animation.Rigging.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Animation.Rigging.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Animation.Rigging.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Burst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Burst.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Burst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Burst.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Collections.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Collections.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Collections.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Collections.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.InputSystem.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.InputSystem.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.InputSystem.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.InputSystem.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Mathematics.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Mathematics.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Mathematics.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Mathematics.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Profiling.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Profiling.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Profiling.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Profiling.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipeline.Universal.ShaderLibrary.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipeline.Universal.ShaderLibrary.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipeline.Universal.ShaderLibrary.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipeline.Universal.ShaderLibrary.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Core.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Core.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Core.Runtime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Core.Runtime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.RenderPipelines.Universal.Runtime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.ResourceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.ResourceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.ResourceManager.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.ResourceManager.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Splines.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Splines.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Splines.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Splines.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.TextMeshPro.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.TextMeshPro.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.TextMeshPro.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.TextMeshPro.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Timeline.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Timeline.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Timeline.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.Timeline.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.VisualEffectGraph.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.VisualEffectGraph.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.VisualEffectGraph.Runtime.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.VisualEffectGraph.Runtime.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.CoreUtils.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.CoreUtils.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.CoreUtils.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.CoreUtils.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Interaction.Toolkit.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Interaction.Toolkit.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Interaction.Toolkit.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Interaction.Toolkit.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Management.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.Oculus.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.OpenVR.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.OpenVR.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.OpenVR.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.OpenVR.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.PICO.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.PICO.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.PICO.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Unity.XR.PICO.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/UnityEngine.SpatialTracking.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/VRKB.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/VRKB.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/VRKB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/VRKB.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/com.rlabrecque.steamworks.net.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/com.rlabrecque.steamworks.net.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/com.rlabrecque.steamworks.net.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/com.rlabrecque.steamworks.net.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/fluxy.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/fluxy.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/fluxy.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/fluxy.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/modio.UnityPlugin.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider-Man.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +177,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7d36e502a2aa44d9ab842f6a24d353a3397000/bb/ba0acbae/Electrocute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7d36e502a2aa44d9ab842f6a24d353a3397000/f3/2ca15b9a/Status.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7d36e502a2aa44d9ab842f6a24d353a3397000/f4/b157d49a/StatusDataElectrocute.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9eb7dffde728432789595fa59050dd1d397400/55/70c1e112/IkController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9eb7dffde728432789595fa59050dd1d397400/5f/3b1f808d/CollisionInstance.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Common/Common/CycleList.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWeb.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWebGadget.cs" root0="FORCE_HIGHLIGHTING" />
@@ -60,23 +197,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature-webYank&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />

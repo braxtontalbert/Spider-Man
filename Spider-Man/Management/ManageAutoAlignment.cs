@@ -237,17 +237,30 @@ namespace Spider_Man.Management
                 if (Player.local.autoAlign) Player.local.autoAlign = false;
                 if (!Player.local.locomotion.isGrounded)
                 {
-                    if (left.swing.IsSwinging && right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging) && (!left.swing.AttachedToCreature || !right.swing.AttachedToCreature))
+                    if (left.swing.IsSwinging && right.swing.IsSwinging 
+                                              && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging) 
+                                              && (!left.swing.AttachedToCreature || !right.swing.AttachedToCreature) 
+                                              && (!left.swing.AttachedToItem || !right.swing.AttachedToItem))
                     {
                         var centralPoint = (right.swing.WorldAnchorPoint + left.swing.WorldAnchorPoint) / 2f;
                         targetDirection = (centralPoint - Player.currentCreature.ragdoll.headPart.transform.position)
                             .normalized;
                     }
-                    else if (left.swing.IsSwinging && !right.swing.IsSwinging && (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging) && (!left.swing.AttachedToCreature || !right.swing.AttachedToCreature))
-                        targetDirection = (left.swing.WorldAnchorPoint - left.swing.SwingingHandle.transform.position).normalized;
-                    else if (right.swing.IsSwinging && !left.swing.IsSwinging && 
-                             (left.swing.AlreadyAboveWhenSwinging || right.swing.AlreadyAboveWhenSwinging) && (!left.swing.AttachedToCreature || !right.swing.AttachedToCreature))
-                        targetDirection = (right.swing.WorldAnchorPoint - right.swing.SwingingHandle.transform.position).normalized;
+                    else if (left.swing.IsSwinging && !right.swing.IsSwinging 
+                                                   && left.swing.AlreadyAboveWhenSwinging
+                                                   && !left.swing.AttachedToCreature
+                                                   && !left.swing.AttachedToItem)
+                    {
+                        targetDirection = (left.swing.WorldAnchorPoint - left.swing.SwingingHandle.transform.position)
+                            .normalized;
+                    }
+                    else if (right.swing.IsSwinging && !left.swing.IsSwinging &&
+                             right.swing.AlreadyAboveWhenSwinging &&
+                             !right.swing.AttachedToCreature &&
+                             !right.swing.AttachedToItem)
+                    {
+                        targetDirection = (right.swing.WorldAnchorPoint - right.swing.SwingingHandle.transform.position).normalized;   
+                    }
                     else
                     {
                         targetDirection = Vector3.up;

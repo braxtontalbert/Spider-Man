@@ -50,7 +50,7 @@ namespace Spider_Man.Webshooter
                     Player.fallDamage = false;
                     GameManager.SetFreeClimb(true);
                     hand.caster.DisableSpellWheel(this);
-                    hand.caster.telekinesis.Disable(ManageAutoAlignment.local.right);
+                    hand.caster.telekinesis.Disable(item);
                     break;
                 case Side.Left:
                     ManageAutoAlignment.local.left.ActivateItem(item);
@@ -59,7 +59,7 @@ namespace Spider_Man.Webshooter
                     Player.fallDamage = false;
                     GameManager.SetFreeClimb(true);
                     hand.caster.DisableSpellWheel(this);
-                    hand.caster.telekinesis.Disable(ManageAutoAlignment.local.left);
+                    hand.caster.telekinesis.Disable(item);
                     break;
             }
 

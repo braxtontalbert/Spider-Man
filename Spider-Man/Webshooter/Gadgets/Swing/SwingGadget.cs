@@ -99,7 +99,8 @@ namespace Spider_Man.Webshooter.Gadgets
         
         void StartSwingCheck()
         {
-            if (Physics.Raycast(Item.flyDirRef.transform.position + (Item.flyDirRef.transform.forward * 0.4f), Item.flyDirRef.transform.forward, out var hit,
+            Ray ray = new Ray(Item.flyDirRef.transform.position + (Item.flyDirRef.transform.forward * 0.4f), Item.flyDirRef.transform.forward);
+            if (Physics.SphereCast(ray, 0.25f, out var hit,
                     80f, ((Physics.DefaultRaycastLayers) | (1 << 9) | (1 << 3) ), QueryTriggerInteraction.Ignore) && !SpawningHandle)
             {
                 webHitSpot = hit;
@@ -137,14 +138,14 @@ namespace Spider_Man.Webshooter.Gadgets
             LineRenderer.enabled = true;
             LineRenderer.textureMode = LineTextureMode.Tile;
             LineRenderer.widthMultiplier = 0.1f;
-            LineRenderer.material = WebShooterPersistence.local.webMaterial;
+            LineRenderer.material = WebShooterPersistence.local.GetWebMaterial(ModOptions.webLineType);
             LineRenderer.positionCount = 0;
 
             HandleRenderer = new GameObject().AddComponent<LineRenderer>();
             HandleRenderer.enabled = true;
             HandleRenderer.textureMode = LineTextureMode.Tile;
             HandleRenderer.widthMultiplier = 0.1f;
-            HandleRenderer.material = WebShooterPersistence.local.webMaterial;
+            HandleRenderer.material = WebShooterPersistence.local.GetWebMaterial(ModOptions.webLineType);
             HandleRenderer.positionCount = 2;
         }
         
@@ -162,7 +163,7 @@ namespace Spider_Man.Webshooter.Gadgets
             CurrentWebPosition = SwingingHandle.flyDirRef.transform.position;
             SwingingHandle.OnUngrabEvent -= UnGrabbedSwinging;
             SwingingHandle.OnUngrabEvent += UnGrabbedSwinging;
-            SetSpringJoint(hit);
+            if (!SetSpringJoint(hit)) return;
 
             Hand.UnGrab(false);
             Handle handle = SwingingHandle.mainHandleRight;
@@ -183,7 +184,7 @@ namespace Spider_Man.Webshooter.Gadgets
 
         private GameObject anchorObj;
         private SpringJoint jnt;
-        void SetSpringJoint(RaycastHit hit)
+        bool SetSpringJoint(RaycastHit hit)
         {
             if (hit.collider)
             {
@@ -191,6 +192,8 @@ namespace Spider_Man.Webshooter.Gadgets
                 {
                     AttachedToItem = true;
                     hitItem = item;
+
+                    hitItem.OnBreakStart += OnBreakStart;
                     
                     WebConnectedToRb = true;
                     CurrentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
@@ -226,10 +229,18 @@ namespace Spider_Man.Webshooter.Gadgets
                     jnt.breakForce = Mathf.Infinity;
                     jnt.breakTorque = Mathf.Infinity;
                 }
-                else if (hit.collider.gameObject.GetComponentInParent<Creature>() is Creature creature)
+                else if (hit.collider.gameObject.GetComponentInParent<Creature>() is Creature creature && !creature.isPlayer)
                 {
                     AttachedToCreature = true;
                     hitCreature = creature;
+                    
+                    if (hitCreature.gameObject.GetComponent<CreatureWebTracker>() is CreatureWebTracker tracker)
+                    {
+                        if (tracker.stuckToWall)
+                        {
+                            return false;
+                        }
+                    }
                     
                     WebConnectedToRb = true;
                     CurrentAnchorPoint = hit.collider.transform.InverseTransformPoint(hit.point);
@@ -317,8 +328,26 @@ namespace Spider_Man.Webshooter.Gadgets
 
                 MainJoint.breakForce = Mathf.Infinity;
                 MainJoint.breakTorque = Mathf.Infinity;
+                AttachedToCreature = false;
+                AttachedToItem = false;
             }
+
+            return true;
         }
+
+        private void OnBreakStart(Breakable breakable)
+        {
+            /*foreach (var handler in SwingingHandle.handlers)
+            {
+                handler.UnGrab(false);
+            }*/
+            this.Hand.UnGrab(false);
+            if(this.Hand.otherHand.grabbedHandle == this.SwingingHandle.GetMainHandle(this.Hand.side))
+                this.Hand.otherHand.UnGrab(false);
+            if(breakable.IsBroken) BreakSwing();
+            breakable.LinkedItem.OnBreakStart -= OnBreakStart;
+        }
+
         void BreakSwing()
         {
             Hand.poser.SetTargetPose(HandPoseData, true, true, true, true, true);
@@ -344,39 +373,15 @@ namespace Spider_Man.Webshooter.Gadgets
                 hitItem = null;
             }
             AlreadyAboveWhenSwinging = false;
-        }
-
-        void DrawWebAfter(float velocity)
-        {
-            Vector3 basePoint = CurrentWebPosition; // the fixed anchor (point B)
-            Vector3 forward = SwingingHandle.flyDirRef.transform.forward; // or some stable forward direction
-            Vector3 right = SwingingHandle.flyDirRef.transform.right;
-            Vector3 up = SwingingHandle.flyDirRef.transform.up;
-
-            for (int i = 0; i < ModOptions.quality + 1; i++)
-            {
-                float delta = i / (float)ModOptions.quality;
-
-                // Stay in local "web" space around B
-                float wave = Mathf.Sin(Time.time * velocity + delta * Mathf.PI * ModOptions.waveCount);
-                float amplitude = Mathf.Lerp(ModOptions.waveHeight, ModOptions.waveHeight * 2f, delta) * Spring.Value;
-
-                Vector3 offset = up * amplitude * wave * AffectCurve.Evaluate(delta);
-
-                // optional: add some small rotation to the wobble
-                float rotationAngle = delta * ModOptions.rotation;
-                Quaternion rotation = Quaternion.AngleAxis(rotationAngle, forward);
-                offset = rotation * offset;
-
-                // anchor around B instead of between A→B
-                LineRenderer.SetPosition(i, basePoint + offset);
-            }
+            AttachedToItem = false;
+            AttachedToCreature = false;
         }
         void DrawWeb()
         {
             if (LineRenderer.positionCount == 0)
             {
                 Spring.SetVelocity(ModOptions.velocity);
+                Spring.SetValue(0);
                 LineRenderer.positionCount = ModOptions.quality + 1;
             }
             
@@ -387,7 +392,7 @@ namespace Spider_Man.Webshooter.Gadgets
             var grapplePoint = WorldAnchorPoint;
             var grappleStartPoint = SwingingHandle.flyDirRef.transform.position;
             var up = Quaternion.LookRotation((grapplePoint - grappleStartPoint).normalized) * Vector3.up;
-            if (Spring.Value > 0.1f)
+            if (Spring.Value > 0.01f)
             {
                 CurrentWebPosition = Vector3.Lerp(CurrentWebPosition, grapplePoint, Time.deltaTime * 12f);
             }
@@ -481,7 +486,6 @@ namespace Spider_Man.Webshooter.Gadgets
         {
             if (IsSwinging)
             {
-
                 currentVelocity = Hand.Velocity();
 
                 if (AllowIntersections()) CheckForWeblineIntersections();
@@ -525,7 +529,7 @@ namespace Spider_Man.Webshooter.Gadgets
                         if (isAcceleratingCreature)
                         {
                             if(hitItem.mainHandler != null) hitItem.mainHandler.UnGrab(false);
-                            hitItem.AddForce(currentVelocity.normalized * 1f * Mathf.Clamp(hitItem.physicBody.rigidBody.velocity.magnitude, 1, 3f), ForceMode.Impulse);
+                            hitItem.AddForce(currentVelocity.normalized * 2f * hitItem.totalCombinedMass, ForceMode.Impulse);
                         }
                     }
                     else if(currentVelocity.magnitude > previousVelocity.magnitude + 0.3f)
@@ -540,8 +544,16 @@ namespace Spider_Man.Webshooter.Gadgets
                     }
                 }
 
-                if (AttachedToCreature)
+                if (AttachedToCreature && hitCreature != null)
                 {
+                    if (hitCreature.gameObject.GetComponent<CreatureWebTracker>() is CreatureWebTracker tracker)
+                    {
+                        if (tracker.stuckToWall)
+                        {
+                            this.Hand.UnGrab(false);
+                            BreakSwing();
+                        }
+                    }
                     if (anchorObj)
                     {
                         anchorObj.transform.position = SwingingHandle.flyDirRef.transform.position;
@@ -552,8 +564,9 @@ namespace Spider_Man.Webshooter.Gadgets
                     {
                         hitCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
                     }
+                    
                 }
-                else if (AttachedToItem)
+                else if (AttachedToItem && hitItem != null)
                 {
                     if (anchorObj)
                     {
