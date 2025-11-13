@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Spider_Man.Management;
 using ThunderRoad;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,6 +19,8 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
         
         //Custom members
         private bool SpawningWebBall { get; set; }
+
+        private string webTypeAddition = "";
 
         public void Activate(Item item, RagdollHand hand, ref bool itemAttached)
         {
@@ -40,9 +43,14 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
         {
             if (!SpawningWebBall)
             {
-                SpawningWebBall = true;
-                Catalog.GetData<ItemData>("WebBall").SpawnAsync(callback =>
+                if (ModOptions.webColor == "Black")
                 {
+                    webTypeAddition = "Black";
+                }
+                SpawningWebBall = true;
+                Catalog.GetData<ItemData>("WebBall"+webTypeAddition).SpawnAsync(callback =>
+                {
+                    webTypeAddition = "";
                     callback.transform.position = Item.flyDirRef.transform.position;
                     callback.transform.rotation = Item.flyDirRef.transform.rotation;
                     var webbBall = callback.GetComponent<Item>();
@@ -60,6 +68,8 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
                         Mathf.Clamp(Math.Abs(Hand.physicBody.rigidBody.velocity.magnitude), 85f, 130f),
                         ForceMode.Impulse);
 
+                    
+                    
                     Catalog.InstantiateAsync("WebBallSFX", Item.flyDirRef.transform.position,
                         Item.flyDirRef.transform.rotation,
                         Item.gameObject.transform,

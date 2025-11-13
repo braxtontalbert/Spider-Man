@@ -133,17 +133,19 @@ namespace Spider_Man.Webshooter.Gadgets
         void CreateOrValidateLineRenderer()
         {
             Spring.Reset();
+            float multiplier = 1f;
+            if (ModOptions.webLineType.Equals("Realistic")) multiplier = 2f;
             LineRenderer = new GameObject().AddComponent<LineRenderer>();
             LineRenderer.enabled = true;
             LineRenderer.textureMode = LineTextureMode.Tile;
-            LineRenderer.widthMultiplier = 0.1f;
+            LineRenderer.widthMultiplier = 0.1f * multiplier;
             LineRenderer.material = WebShooterPersistence.local.GetWebMaterial(ModOptions.webLineType);
             LineRenderer.positionCount = 0;
 
             HandleRenderer = new GameObject().AddComponent<LineRenderer>();
             HandleRenderer.enabled = true;
             HandleRenderer.textureMode = LineTextureMode.Tile;
-            HandleRenderer.widthMultiplier = 0.1f;
+            HandleRenderer.widthMultiplier = 0.1f * multiplier;
             HandleRenderer.material = WebShooterPersistence.local.GetWebMaterial(ModOptions.webLineType);
             HandleRenderer.positionCount = 2;
         }

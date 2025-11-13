@@ -11,7 +11,7 @@ namespace Spider_Man.Webshooter.Gadgets.ElectricWeb
         private Vector3 spawnPoint;
         private Transform webBallTexture;
         private Item webshooter;
-
+        string webTypeAddition = "";
         public void Setup(Vector3 spawnPoint, Transform webBallTexture, Item webshooter)
         {
             this.spawnPoint = spawnPoint;
@@ -24,8 +24,12 @@ namespace Spider_Man.Webshooter.Gadgets.ElectricWeb
         }
         private void OnCollisionEnter(Collision collision)
         {
+            if (ModOptions.webColor == "Black")
+            {
+                webTypeAddition = "Black";
+            }
             var direction = (collision.contacts[0].point - webshooter.flyDirRef.transform.position).normalized;
-            Catalog.InstantiateAsync("webSplat", collision.contacts[0].point, item.transform.rotation,
+            Catalog.InstantiateAsync("webSplat" + webTypeAddition, collision.contacts[0].point, item.transform.rotation,
                 null,
                 go =>
                 {

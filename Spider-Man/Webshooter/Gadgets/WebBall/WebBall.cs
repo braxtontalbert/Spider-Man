@@ -9,7 +9,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
         private Item item;
         private Vector3 spawnPoint;
         private Transform webBallTexture;
-
+        private string webTypeAddition = "";
         public void Setup(Vector3 spawnPoint, Transform webBallTexture)
         {
             this.spawnPoint = spawnPoint;
@@ -23,7 +23,11 @@ namespace Spider_Man.Webshooter.Gadgets.WebBall
         private void OnCollisionEnter(Collision collision)
         {
             item.Despawn();
-            Catalog.InstantiateAsync("webSplat", collision.contacts[0].point, item.transform.rotation,
+            if (ModOptions.webColor == "Black")
+            {
+                webTypeAddition = "Black";
+            }
+            Catalog.InstantiateAsync("webSplat" + webTypeAddition, collision.contacts[0].point, item.transform.rotation,
                 null,
                 go =>
                 {

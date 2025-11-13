@@ -33,21 +33,25 @@ namespace Spider_Man.Management
         public static ModOptionFloat[] strengthOption = new ModOptionFloat[1601];
         public static ModOptionFloat[] waveOption = new ModOptionFloat[30];
         public static ModOptionInt[] jumpPowerOption = new ModOptionInt[11];
-        public static ModOptionBool[] booleanOptions = new ModOptionBool[2]
-        {
-            new ModOptionBool("Disabled", false),
-            new ModOptionBool("Enabled",true)
-        };
-        public static ModOptionString[] weblineOptions = new ModOptionString[2]
+        public static ModOptionString[] weblineOptions =
         {
             new ModOptionString("Classic", "Classic"),
-            new ModOptionString("Realistic", "Realistic")
+            new ModOptionString("Realistic", "Realistic"),
+            new ModOptionString("Custom", "Custom")
         };
-        public static ModOptionString[] webNetOptions = new ModOptionString[2]
+        public static ModOptionString[] webNetOptions =
         {
             new ModOptionString("Classic", "Classic"),
-            new ModOptionString("Realistic", "Realistic")
+            new ModOptionString("Realistic", "Realistic"),
+            new ModOptionString("Custom", "Custom")
         };
+        public static ModOptionString[] webColorType =
+        {
+            new ModOptionString("Black", "Black"),
+            new ModOptionString("Original", "Original")
+        };
+        
+        
         public static ModOptionFloat[] alignmentSpeedOption = new ModOptionFloat[10 * 10];
 
         public override void ScriptLoaded(ModManager.ModData modData)
@@ -110,22 +114,24 @@ namespace Spider_Man.Management
 
         [ModOptionArrows]
         [ModOptionCategory("Spider-Man", 13)]
-        [ModOption("Web Line Type", "Changes the type of webline used when swinging.", nameof(weblineOptions), defaultValueIndex = 0)]
+        [ModOption("Web Line Style", "Changes the style of webline used when swinging.", nameof(weblineOptions), defaultValueIndex = 0)]
         [ModOptionSave]
         [ModOptionSaveValue(true)]
         public static string webLineType = "Classic";
         
         [ModOptionArrows]
         [ModOptionCategory("Spider-Man", 14)]
-        [ModOption("Web Net Type", "Changes the type of webnet used when attachign to enemies.", nameof(weblineOptions), defaultValueIndex = 0)]
+        [ModOption("Web Net Style", "Changes the style of webnet used when attachign to enemies.", nameof(weblineOptions), defaultValueIndex = 0)]
         [ModOptionSave]
         [ModOptionSaveValue(true)]
         public static string webNetType = "Classic";
         
-        /*[ModOption("Auto Reset Align", "Enables/Disables auto adjustment to the normal alignment when Align Player While Swinging is enabled", category = "Spider-Man")]
+        [ModOptionArrows]
+        [ModOptionCategory("Spider-Man", 15)]
+        [ModOption("Web Type", "Changes the type of webbing used when using the mod", nameof(webColorType), defaultValueIndex = 1)]
         [ModOptionSave]
         [ModOptionSaveValue(true)]
-        public static bool autoResetAlign;*/
+        public static string webColor = "Original";
 
         [ModOptionSlider]
         [ModOptionCategory("Spider-Man", 1)]

@@ -16,6 +16,10 @@ namespace Spider_Man.Management
         public static WebShooterPersistence local;
         public Material webMaterial;
         public Material webMaterial2;
+        public Material webMaterial3;
+        public Material webMaterialBlack;
+        public Material webMaterial2Black;
+        public Material webMaterial3Black;
         public string characterID;
         public Dictionary<String, bool> sideData;
         private bool waitingForData = false;
@@ -42,6 +46,36 @@ namespace Spider_Man.Management
                 {
                     webMaterial2 = callback;
                 }, "Webmaterial2Handler");
+            }
+            if (webMaterial3 == null)
+            {
+                Catalog.LoadAssetAsync<Material>("Webtexture3", callback =>
+                {
+                    webMaterial3 = callback;
+                }, "Webmaterial3Handler");
+            }
+            
+            if (webMaterialBlack == null)
+            {
+                Catalog.LoadAssetAsync<Material>("WebtextureBlack", callback =>
+                {
+                    webMaterialBlack = callback;
+                }, "WebmaterialBlack");
+            }
+
+            if (webMaterial2Black == null)
+            {
+                Catalog.LoadAssetAsync<Material>("Webtexture2Black", callback =>
+                {
+                    webMaterial2Black = callback;
+                }, "Webmaterial2HandlerBlack");
+            }
+            if (webMaterial3Black == null)
+            {
+                Catalog.LoadAssetAsync<Material>("Webtexture3Black", callback =>
+                {
+                    webMaterial3Black = callback;
+                }, "Webmaterial3HandlerBlack");
             }
             Player.onSpawn += player =>
             {
@@ -71,16 +105,36 @@ namespace Spider_Man.Management
         
         public Material GetWebMaterial(String materialName)
         {
-            switch (materialName)
+            switch (ModOptions.webColor)
             {
-                case "Classic":
-                    return webMaterial;
-                case "Realistic":
-                    return webMaterial2;
+                case "Black":
+                    Debug.Log(materialName);
+                    switch (materialName)
+                    {
+                        case "Classic":
+                            return webMaterialBlack;
+                        case "Realistic":
+                            return webMaterial3Black;
+                        case "Custom":
+                            return webMaterial2Black;
+                        default:
+                            return null;
+                    }
                 default:
-                    return null;
+                    switch (materialName)
+                    {
+                        case "Classic":
+                            return webMaterial;
+                        case "Realistic":
+                            return webMaterial3;
+                        case "Custom":
+                            return webMaterial2;
+                        default:
+                            return null;
+                    }
             }
         }
+        
         
         private void LevelUnloadEvent(LevelData leveldata, LevelData.Mode mode, EventTime eventtime)
         {

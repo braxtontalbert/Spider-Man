@@ -50,7 +50,9 @@ namespace Spider_Man.Webshooter.Gadgets.WebNet
 
                 LineRenderer lr = lineObj.AddComponent<LineRenderer>();
                 lr.material = lineMaterial != null ? lineMaterial : new Material(Shader.Find("Sprites/Default"));
-                lr.widthMultiplier = lineWidth;
+                float multiplier = 1f;
+                if (ModOptions.webLineType.Equals("Realistic")) multiplier = 2f;
+                lr.widthMultiplier = lineWidth * multiplier;
                 lr.useWorldSpace = true;
                 lr.alignment = LineAlignment.View;
                 lr.positionCount = 2;

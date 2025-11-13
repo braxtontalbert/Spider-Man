@@ -14,6 +14,8 @@ namespace Spider_Man.Management
 
         public Material materialWeb;
         public Material materiaLWebElevated;
+        public Material materialWebBlack;
+        public Material materiaLWebElevatedBlack;
 
         private float elapsedTimeSwingStart = 0f;
         private float elapsedTimeSwingEnd = 0f;
@@ -28,6 +30,7 @@ namespace Spider_Man.Management
         public override void ScriptLoaded(ModManager.ModData modData)
         {
             base.ScriptLoaded(modData);
+            
             if (local == null)
             {
                 local = this;
@@ -41,6 +44,16 @@ namespace Spider_Man.Management
             {
                 this.materiaLWebElevated = material;
             }, "WebElevatedMaterialHandler");
+            
+            Catalog.LoadAssetAsync<Material>("WebbedUpMatBlack", material =>
+            {
+                this.materialWebBlack = material;
+            }, "WebMaterialBlackHandler");
+            Catalog.LoadAssetAsync<Material>("WebbedUpMatElevatedBlack", material =>
+            {
+                this.materiaLWebElevatedBlack = material;
+            }, "WebElevatedMaterialBlackHandler");
+            
             Catalog.LoadAssetAsync<GameObject>("groundSlam", o =>
             {
                 slamEffect = o;

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Spider_Man.Management;
 using ThunderRoad;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Spider_Man.Webshooter.Gadgets.WebBomb
         private bool SpawnTimeReset = false;
         bool SpawningWebBomb = false;
         private AudioSource ReloadSound;
+        string webTypeAddition = "";
         public void Activate(Item item, RagdollHand hand, ref bool itemAttached)
         {
             if (Item == null && Hand == null)
@@ -56,8 +58,13 @@ namespace Spider_Man.Webshooter.Gadgets.WebBomb
                 SpawnTimeReset = false;
                 StartCoroutine(WebBombTimer());
                 SpawningWebBomb = true;
-                Catalog.InstantiateAsync("webBomb", Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation, null, callback =>
+                if(ModOptions.webColor == "Black")
                 {
+                    webTypeAddition = "Black";
+                }
+                Catalog.InstantiateAsync("webBomb"+webTypeAddition, Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation, null, callback =>
+                {
+                    webTypeAddition = "";
                     var webbBall = callback.GetComponent<Item>();
                     webbBall.Throw(flyDetection: Item.FlyDetection.Forced);
                     webbBall.IgnoreItemCollision(Item);

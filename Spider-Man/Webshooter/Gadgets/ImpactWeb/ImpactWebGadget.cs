@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Spider_Man.Management;
 using ThunderRoad;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Spider_Man.Webshooter.Gadgets
         public Item Item { get; set; }
         public int PressCount { get; set; }
         public Coroutine Coroutine { get; set; }
+        private string webTypeAddition = "";
         public void Activate(Item item, RagdollHand hand, ref bool itemAttached)
         {
             if (Item == null && Hand == null)
@@ -48,8 +50,13 @@ namespace Spider_Man.Webshooter.Gadgets
                 SpawnTimeReset = false;
                 StartCoroutine(ImpactWebTimer());
                 SpawningImpactWeb = true;
-                Catalog.InstantiateAsync("impactWeb", Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation, null, callback =>
+                if (ModOptions.webColor == "Black")
                 {
+                    webTypeAddition = "Black";
+                }
+                Catalog.InstantiateAsync("impactWeb"+webTypeAddition, Item.flyDirRef.transform.position, Item.flyDirRef.transform.rotation, null, callback =>
+                {
+                    webTypeAddition = "";
                     callback.transform.position = Item.flyDirRef.transform.position;
                     callback.transform.rotation = Item.flyDirRef.transform.rotation;
                     var webbBall = callback.GetComponent<Item>();

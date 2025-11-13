@@ -6,7 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="662157e0-cda4-4c01-8c5c-aff2c7e17fc0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spider-Man/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/CreatureWebTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/CreatureWebTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/ManageAutoAlignment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ManageAutoAlignment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/ModOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/ModOptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Management/WebShooterPersistence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Management/WebShooterPersistence.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWeb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWeb.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWebGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ElectricWeb/ElectricWebGadget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ImpactWeb/ImpactWeb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ImpactWeb/ImpactWeb.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ImpactWeb/ImpactWebGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/ImpactWeb/ImpactWebGadget.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/Swing/SwingGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/Swing/SwingGadget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBall.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBallGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBall/WebBallGadget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBombGadget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebBomb/WebBombGadget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebNet/WebConnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/Webshooter/Gadgets/WebNet/WebConnector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/bin/Debug/Spider_Man.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Spider-Man/obj/Debug/Spider_Man.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +86,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feature-realisticWeblineUpgrades",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

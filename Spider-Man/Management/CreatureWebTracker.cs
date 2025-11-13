@@ -408,8 +408,11 @@ namespace Spider_Man.Management
                 {
                     foreach (var renderer in creature.renderers)
                     {
-                        Material webMatSkin = ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
-                        Material webMatElevated =
+                        Material webMatSkin = ModOptions.webColor == "Black" ?
+                            ManageAutoAlignment.local.materialWebBlack.DeepCopyByExpressionTree() : 
+                            ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
+                        Material webMatElevated = ModOptions.webColor == "Black" ? 
+                            ManageAutoAlignment.local.materiaLWebElevatedBlack.DeepCopyByExpressionTree() :
                             ManageAutoAlignment.local.materiaLWebElevated.DeepCopyByExpressionTree();
                         originalCreatureMaterial.Enqueue(renderer.renderer.materials);
                         Material[] myMaterials = renderer.renderer.materials;
@@ -432,8 +435,11 @@ namespace Spider_Man.Management
                 {
                     foreach (var renderer in creature.renderers)
                     {
-                        Material webMatSkin = ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
-                        Material webMatElevated =
+                        Material webMatSkin = ModOptions.webColor == "Black" ?
+                            ManageAutoAlignment.local.materialWebBlack.DeepCopyByExpressionTree() : 
+                            ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
+                        Material webMatElevated = ModOptions.webColor == "Black" ? 
+                            ManageAutoAlignment.local.materiaLWebElevatedBlack.DeepCopyByExpressionTree() :
                             ManageAutoAlignment.local.materiaLWebElevated.DeepCopyByExpressionTree();
                         originalCreatureMaterial.Enqueue(renderer.renderer.materials);
                         Material[] myMaterials = renderer.renderer.materials;
@@ -464,7 +470,6 @@ namespace Spider_Man.Management
                             {
                                 multiplier = 1f;
                             }
-
                             mat.SetFloat("_fresnelPower", 100f);
                         }
                     }
@@ -521,8 +526,11 @@ namespace Spider_Man.Management
                     {
                         foreach (var renderer in creature.renderers)
                         {
-                            Material webMatSkin = ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
-                            Material webMatElevated =
+                            Material webMatSkin = ModOptions.webColor == "Black" ?
+                                ManageAutoAlignment.local.materialWebBlack.DeepCopyByExpressionTree() : 
+                                ManageAutoAlignment.local.materialWeb.DeepCopyByExpressionTree();
+                            Material webMatElevated = ModOptions.webColor == "Black" ? 
+                                ManageAutoAlignment.local.materiaLWebElevatedBlack.DeepCopyByExpressionTree() :
                                 ManageAutoAlignment.local.materiaLWebElevated.DeepCopyByExpressionTree();
                             originalCreatureMaterial.Enqueue(renderer.renderer.materials);
                             Material[] myMaterials = renderer.renderer.materials;
